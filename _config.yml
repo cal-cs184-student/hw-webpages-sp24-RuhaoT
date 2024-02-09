@@ -1,1 +1,2 @@
-theme: jekyll-theme-cayman
+theme: 
+  name: jekyll-theme-architect
