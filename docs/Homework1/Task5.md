@@ -154,5 +154,7 @@ Examine the images, jaggies is visible in the nearest sampling with supersamplin
 
 ## Discussion
 
-It is clear that bilinear sampling is better than nearest sampling, even bilinear sampling with supersample rate 1 can achieve better result than nearest sampling with supersample rate 16. According to the code, bilinear sampling is certainly more costly, but it smooths the color transition, so images with many high frequency elements would have more obvious effect, like this twisted logo with sharp orange-white transition. Another noticable thing is bilinear sampling is more effective than nearest sampling and supersampling combined. This is because supersampling can only smooth the color transition in the pixel level, while bilinear sampling smooths the color transition in the texel level. In magnification pixel sampling, many texels are mapped to one pixel, so bilinear sampling is more effective than supersampling.
+It is clear that bilinear sampling is better than nearest sampling, even bilinear sampling with supersample rate 1 can achieve better result than nearest sampling with supersample rate 16. According to the code, bilinear sampling is certainly more costly, but it smooths the color transition, so images with many high frequency elements would have more obvious effect, like this twisted logo with sharp orange-white transition. 
+
+Another noticable thing is bilinear sampling is more effective than nearest sampling and supersampling combined. This is because supersampling can only smooth the color transition in the pixel level, while bilinear sampling smooths the color transition in the texel level. In magnification pixel sampling, many texels are mapped to one pixel, so bilinear sampling is more effective than supersampling.
 
