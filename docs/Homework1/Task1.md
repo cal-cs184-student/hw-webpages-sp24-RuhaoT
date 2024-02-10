@@ -1,19 +1,14 @@
-# Homework 1: Rasterizer
-
-## Overview
-Working in progress...
-
-## Task 1: Drawing Single-Color Triangles
-### Method
+# Task 1: Drawing Single-Color Triangles
+## Method
 The high-level idea of drawing triangles comes in two steps:
 
 1. **Bounding Box**: Find the bounding box of the triangle, which is the smallest rectangle that contains the triangle. This is done by finding the minimum and maximum x and y coordinates of the triangle.
 
 2. **Rasterization**: For each pixel in the bounding box, check if it is inside the triangle. If it is, color it with the triangle's color.
 
-### Implementation
+## Implementation
 
-#### Bounding Box
+### Bounding Box
 
 Given the three vertices of the triangle, finding x limits and y limits is straightforward. However, the limits are not necessarily integers. In order to ensure the bounding box fully covers the triangle, we need to take the ceiling and floor of the limits. To elaborate, the x minimum and y minimum should be rounded down when finding the boundary pixels, vice versa.
 
@@ -28,7 +23,7 @@ Given the three vertices of the triangle, finding x limits and y limits is strai
     int bounding_box_y_max = (int)ceil(max(y0, max(y1, y2)));
 ```
 
-#### Rasterization
+### Rasterization
 
 Implicit line equations are implemented to determind whether a sample position is inside or on the edge of the triangle:
 
@@ -73,6 +68,7 @@ Though the above method, whether each pixel's color could be determind through a
     }
 ```
 
-### Results
+## Results
 The following image is the rasterized result of `basic/test4.svg`:
-![Result of test4.svg](./images/hw1/hw1task1.png)
+![Result of test4.svg](../images/hw1/hw1task1.png)
+
