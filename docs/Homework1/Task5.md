@@ -1,6 +1,6 @@
 # Task 5: "Pixel sampling" for texture mapping
 
-## Methology
+## Methodology
 
 ### Texture Coordinates Mapping
 
@@ -72,13 +72,15 @@ Bilinear sampling is more complex than nearest sampling, but it can effectively 
 
 The nearest texel of the sample point is exactly the texel sample point is in. Therefore, the position of the nearest texel is the integer part of the texture coordinates, and can be easily calculated by `floor` function.
 
+It is worth noting that, as mipmap size varies with the level, the input texture coordinates should be scaled to the mipmap size.
+
 ```cpp
   Color Texture::sample_nearest(Vector2D uv, int level) {
     // TODO: Task 5: Fill this in.
     auto& mip = mipmap[level];
 
 
-    return mip.get_texel((int)floor(uv.x * width), (int)floor(uv.y * height));
+    return mip.get_texel((int)floor(uv.x * mip.width), (int)floor(uv.y * mip.height));
   }
 ```
 
