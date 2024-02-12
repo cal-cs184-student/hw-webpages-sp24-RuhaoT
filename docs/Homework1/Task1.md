@@ -25,7 +25,7 @@ Given the three vertices of the triangle, finding x limits and y limits is strai
 
 ### Rasterization
 
-Implicit line equations are implemented to determind whether a sample position is inside or on the edge of the triangle:
+Implicit line equations are implemented to determine whether a sample position is inside or on the edge of the triangle:
 
 $$
 L(x,y) = -(x - x_0)dX + (y - y_0)dY
@@ -33,9 +33,9 @@ $$
 
 If $P_0(x_0,y_0)$ and $P_1(x_1,y_1)$ are two points on the line, then $dX = x_1 - x_0$, $dY = y_1 - y_0$.
 
-If $L$ yields all positive results for the three edge, then the sample position is considered insde the triangle. When $L = 0$, the sample position is on the edge. Both situation the sample position should be colored.
+If $L$ yields all positive results for the three edge, then the sample position is considered inside the triangle. When $L = 0$, the sample position is on the edge. Both situations the sample position should be colored.
 
-Though the above method, whether each pixel's color could be determind through a one-time iteration.
+Through the above method, each pixel's color could be determined through a one-time iteration.
 
 ```cpp
     // Step 2: Iterate through all the pixels in the bounding box

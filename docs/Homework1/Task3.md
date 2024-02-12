@@ -1,10 +1,10 @@
 # Task 3: Transforms
 
 ## SVG Design
-The overall idea is to design a robot with black hair, yellow skin, grey trousers and T-shirt with Berkeley's iconic orange and blue color. The posture of robot is standing with right arm on the waist and left arm waiving.
+The overall idea is to design a robot with black hair, yellow skin, grey trousers and a T-shirt with Berkeley's iconic orange and blue color. The posture of robot is standing with right arm on the waist and left arm waving.
 
 ## Setting up colors
-With the help of palette software, the RGB code of colors are obtained:
+With the help of palette software, the RGB code of colors is obtained:
 
 - :material-checkbox-blank-circle:{ style="color:#000000" } Black: #000000
 - :material-checkbox-blank-circle:{ style="color:#f3cb81" } Yellow: #f3cb81
@@ -18,7 +18,7 @@ Filling the colors in the SVG file, the robot is rendered as follows:
 
 ## Transforms
 
-The right arm of the robot is rotated by -45 degrees, forearm is rotated by -90, and the relative position is slighted adjusted:(modifications are highlighted in the code below)
+The right arm of the robot is rotated by -45 degrees, the forearm is rotated by -90, and the relative position is slightly adjusted:(modifications are highlighted in the code below)
 
 ```xml linenums="51" hl_lines="2 7 8"
 		<g transform="translate(-90 -30)">
@@ -39,7 +39,7 @@ The right arm of the robot is rotated by -45 degrees, forearm is rotated by -90,
 		</g>
 ```
 
-The left bigarm and forearm of the robot is rotated by -45 degrees, their relative position is adjusted as well:
+The left big arm and forearm of the robot are rotated by -45 degrees, their relative position is adjusted as well:
 
 ```xml linenums="69" hl_lines="2 7 8"
 		<g transform="translate(90 -50)">

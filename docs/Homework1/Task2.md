@@ -1,17 +1,17 @@
 # Task 2: Antialiasing by Supersampling
 
 ## Method
-In task 2, antialiasing is implemented by supersampling and downsampling. Main steps involves:
+In task 2, antialiasing is implemented by supersampling and downsampling. The main steps involves:
 
 - **Creating and maintaining sample buffer**: To store the supersampling result, a sample buffer corresponding to the sample rate is created and managed throughout the render pipeline. When sample rate updates, the sample buffer should be updated accordingly.
 
-- **Supersampling with sample buffer**: Sampling the triangle implements the sample buffer with the same method as in task 1 except the vertice position of triangle should be transformed to the sample buffer coordinate. However, lines and points should not be antialiased. They need to be zoomed by the sample rate before populating the sample buffer.
+- **Supersampling with sample buffer**: Sampling the triangle implements the sample buffer with the same method as in task 1 except the vertice position of triangle should be transformed to the sample buffer coordinate. However, lines and points should not be antialiased. They need to be zoomed in by the sample rate before populating the sample buffer.
 
 - **Downsampling and populating frame buffer**: Downsampling the sample buffer to the frame buffer by mixing the color of the samples corresponding to the same pixel.
 
 ## Implementation
 ### Creating and maintaining sample buffer
-When the sample rate is updated, sample buffer should be resized. As `RasterizerImp::set_sample_rate` updates sample rate, buffer is resized when the function is called:
+When the sample rate is updated, sample buffer should be resized. As `RasterizerImp::set_sample_rate` updates sample rate, the buffer is resized when the function is called:
 
 ```cpp
   void RasterizerImp::set_sample_rate(unsigned int rate)
@@ -64,7 +64,7 @@ $$
 
 The sampling process is exactly the same as in task 1, except the result fills sample buffer instead of frame buffer.
 
-For lines and points, they fill directly to the frame buffer pixels. This can be achieved by filling all the subpixels in the sample buffer with the same color. These subpixels forms a square of size $zoom\_coefficient \times zoom\_coefficient$. A double loop is implement to iterate all the subpixels.
+For lines and points, they fill directly to the frame buffer pixels. This can be achieved by filling all the subpixels in the sample buffer with the same color. These subpixels form a square of size $zoom\_coefficient \times zoom\_coefficient$. A double loop is implemented to iterate all the subpixels.
 
 ```cpp
   void RasterizerImp::fill_pixel(size_t x, size_t y, Color c)
@@ -87,7 +87,7 @@ For lines and points, they fill directly to the frame buffer pixels. This can be
 ```
 
 ### Downsampling and populating frame buffer
-`RasterizerImp::resolve_to_framebuffer` resolves the sample buffer to the frame buffer. It iterate all the pixels in the frame buffer. For each pixel, its subpixel square is located. 
+`RasterizerImp::resolve_to_framebuffer` resolves the sample buffer to the frame buffer. It iterates all the pixels in the frame buffer. For each pixel, its subpixel square is located. 
 
 The R, G, B values of all subpixels are averaged respectively and assigned to a temporary `Color` object `ds_color`:
 
@@ -108,7 +108,7 @@ The R, G, B values of all subpixels are averaged respectively and assigned to a 
         }
 ```
 
-Then the convertion of `ds_color` to `rgb_framebuffer_target` is the same as base code:
+Then the conversion of `ds_color` to `rgb_framebuffer_target` is the same as base code:
 
 ```cpp
         for (int k = 0; k < 3; ++k)
@@ -162,7 +162,7 @@ The full implementation of `RasterizerImp::resolve_to_framebuffer` is:
 ```
 
 ## Results
-The following images are the result of supersampling `basic/test4.svg` with sample rate 1, 4 and 16.
+The following images are the result of supersampling `basic/test4.svg` with sample rates 1, 4 and 16.
 
 !!! info "Image displayed size too small?"
 
@@ -173,9 +173,9 @@ The following images are the result of supersampling `basic/test4.svg` with samp
 ![Sample rate 4](../images/hw1/hw1task2_ss4.png){ width=32%\textwidth}
 ![Sample rate 16](../images/hw1/hw1task2_ss16.png){ width=32%\textwidth}
 
-The following images shows a zoomed view of one triangle in `basic/test4.svg`. The left image is the result of sample rate 1 while the other one implements sample rate 16.
+The following images show a zoomed view of one triangle in `basic/test4.svg`. The left image is the result of sample rate 1 while the other one implements sample rate 16.
 
 ![Sample rate 1 zoomed](../images/hw1/hw1task2_ss1_zoom.png){ width=48%\textwidth}
 ![Sample rate 16 zoomed](../images/hw1/hw1task2_ss16_zoom.png){ width=48%\textwidth}
 
-In the left image, the top of the triangle seemed 'disconnected' from the other part. This is because in the diconnected part all the nearby sample points(center of pixel) are outside the triangle. When the sample rate increases, the subpixels inside the triangle are identified. This comparison shows the effectiveness of supersampling in antialiasing--it not only smooths the edges but also corrects the display of the image.
+In the left image, the top of the triangle seemed 'disconnected' from the other part. This is because, in the disconnected part, all the nearby sample points(center of pixels) are outside the triangle. When the sample rate increases, the subpixels inside the triangle are identified. This comparison shows the effectiveness of supersampling in antialiasing--it not only smooths the edges but also corrects the display of the image.

@@ -4,17 +4,17 @@
 
 ### The Barycentric Coordinate System
 
-The barycentric coordinate present a point in a triangle with the weighted sum of the triangle's vertice postions. Assume triangle vertices $A(x_{A},y_{A})$, $B(x_{B},y_{B})$, and $C(x_{C},y_{C})$, position of any point $P(x_{P},y_{P})$ inside the triangle can be calculated as:
+The barycentric coordinate presents a point in a triangle with the weighted sum of the triangle's vertice positions. Assume triangle vertices $A(x_{A},y_{A})$, $B(x_{B},y_{B})$, and $C(x_{C},y_{C})$, position of any point $P(x_{P},y_{P})$ inside the triangle can be calculated as:
 
 $$
 P = \alpha A + \beta B + \gamma C
 $$
 
-where $\alpha + \beta + \gamma = 1$. In other words, $\alpha$, $\beta$ and $\gamma$ are the weights showing how much each vertex contributes or close to the point $P$.
+where $\alpha + \beta + \gamma = 1$. In other words, $\alpha$, $\beta$ and $\gamma$ are the weights showing how much each vertex contributes or is close to the point $P$.
 
 ### Calculation
 
-One way to represent how close a point is to a vertex is to calculate its porportional distance to the edge opposite to the vertex, as is shown in the following figure:
+One way to represent how close a point is to a vertex is to calculate its proportional distance to the edge opposite to the vertex, as is shown in the following figure:
 
 ![Barycentric coordinates](../images/hw1/hw1task4_BCdistance.png)
 
@@ -52,13 +52,13 @@ $$
 
 ### Features of Barycentric Coordinates
 
-The Barycentric coordinates' distinctive feature makes it suitable for geometric calculations in computer graphics. This includes but not limited to:
+The Barycentric coordinates' distinctive feature makes it suitable for geometric calculations in computer graphics. This includes but is not limited to:
 
 - **Interpolation**: Barycentric coordinates can be used to interpolate values smoothly varying across a triangle. This is useful in texture mapping, color blending, and shading.
 - **Invariance to affine transformations**: Regardless of the affine transformation applied to the triangle, the relative position of the vertices remains the same. As Barycentric coordinates are based on the relative position of the vertices, it could simplify calculation when affine transformations are involved.
 
 ## Implementation
-To determind whether a point is inside a triangle with Barycentric coordinates, whether the three weights are all positive is the only thing needed to check. For the points inside the triangle, its color is the weighted sum of the triangle's vertices' color, where the weights are excatly the Barycentric coordinates' weights. Other parts of the rasterization pocess are the same as Task 2.
+To determine whether a point is inside a triangle with Barycentric coordinates, whether the three weights are all positive is the only thing needed to check. For the points inside the triangle, its color is the weighted sum of the triangle's vertices' color, where the weights are exactly the Barycentric coordinates' weights. Other parts of the rasterization process are the same as Task 2.
 
 The following code shows the rasterization process with Barycentric coordinates, highlighted are the parts where Barycentric coordinates are involved:
 
