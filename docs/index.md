@@ -21,5 +21,5 @@ For each subpage, there is a table of contents on the right side that allows you
 - Ruhao Tian
 - Zixuan Wan
 
-Feel free to contact via Github us if you have any questions or suggestions!
+Feel free to contact us via Github if you have any questions or suggestions!
 

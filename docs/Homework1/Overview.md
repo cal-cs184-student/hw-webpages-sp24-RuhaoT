@@ -15,5 +15,5 @@ We build up our documentation website using markdown and GitHub Pages. Which is 
 
 You can find the detailed implementation and explanation of each task in the following pages. Happy reading!
 
-!!! warning "Note for PDF"
+??? warning "Note for PDF"
     Some features of the website, such as picture lightbox, may not be available in the PDF version. We recommend reading the [website](https://cal-cs184-student.github.io/hw-webpages-sp24-RuhaoT) directly for the best experience.
