@@ -1,6 +1,7 @@
 site_name: CS184 Assignments
 theme:
   name: material
+  custom_dir: docs/overrides
   icon:
     logo: simple/polygon
 
@@ -55,4 +56,8 @@ plugins:
       caption_position: bottom
       background: white
       shadow: true
-  
+  # Make sure to put the print-site plugin at the END of the list
+  - print-site:
+      enabled: true
+      exclude:
+        - index.md
