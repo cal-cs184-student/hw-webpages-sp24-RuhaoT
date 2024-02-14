@@ -25,5 +25,5 @@ jobs:
           path: .cache
           restore-keys: |
             mkdocs-material-
-      - run: pip install mkdocs-material mkdocs-glightbox print-site
+      - run: pip install mkdocs-material mkdocs-glightbox mkdocs-print-site-plugin
       - run: mkdocs gh-deploy --force
