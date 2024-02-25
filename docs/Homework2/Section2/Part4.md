@@ -101,7 +101,7 @@ EdgeIter HalfedgeMesh::flipEdge( EdgeIter e0 )
 
 
 The figure below show the original teapot.
-![before flip](../../images/hw2/section1/hw2part4_before_flip.png){ width=49%\textwidth } 
+![before flip](../../images/hw2/section2/hw2part4_before_flip.png){ width=49%\textwidth } 
 
 The following image shows the teapot after fliping 4 edges. I have highlighted the modifications with a yellow highlighter.
-![after flip](../../images/hw2/section1/hw2part4_after_flip.png){ width=49%\textwidth } 
+![after flip](../../images/hw2/section2/hw2part4_after_flip.png){ width=49%\textwidth } 
