@@ -1,4 +1,4 @@
-# Part2: Bezier Surfaces with Separable 1D de Casteljau
+# Part4: Edge Split
 
 ## Methodology
 
