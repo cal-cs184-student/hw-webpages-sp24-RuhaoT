@@ -8,7 +8,6 @@ Get the reversed image by modifying the given halfedge and related parameter poi
 As shown in the diagram, we now need to modify the pointers related to the halfedge h.
 
 ![example_halfedge](../../images/hw2/section2/hw2part4_flip_halfedge.png){width=49%\textwidth}
-
 After modification:
 1.The starting point of the halfedge becomes A, and it points to D.
 2.The twin() of the halfedge remains unchanged, but it now points to the modified halfedge in the opposite direction.
