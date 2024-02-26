@@ -147,7 +147,7 @@ The figures below is the original teapot.
 ![original teapot](../../images/hw2/section2/hw2part5_teapot.png){ width=49%\textwidth } 
 
 After some edge splits:
-![splite teapot](../../images/hw2/section2/hw2part5_splite.png){ width=49%\textwidth } 
+![splite teapot](../../images/hw2/section2/hw2part2_splite.png){ width=49%\textwidth } 
 
 After a combination of both edge splits and edge flips:
 ![combination teapot](../../images/hw2/section2/hw2part5_combination.png){ width=49%\textwidth } 
