@@ -2,7 +2,7 @@
 
 ## Methodology
 
-Get the reversed image by modifying the given halfedge and related parameter pointers.Below is a example of modifications made to haldedge:
+Get the flip image by modifying the given halfedge and related parameter pointers.Below is a example of modifications made to haldedge:
 
 
 As shown in the diagram, we now need to modify the pointers related to the halfedge h.
