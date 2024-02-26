@@ -1,58 +1,57 @@
-# Part2: Bezier Surfaces with Separable 1D de Casteljau
+# Part 5: Edge Split
 
 ## Methodology
-
 
 The method of edge splitting is similar to Part 4, but it will be a bit more complex. This requires us to consider a new vertex and the 6 new halfedges that are created. We adjust their values and pointers to accomplish the edge split. Here is a simple example explaining the adjustment of pointers for the halfedge h and the new vertex E.
 
 ![example](../../images/hw2/section2/hw2part5_example.png){ width=49%\textwidth } 
 
 for h after modification:
-1.The starting point of the halfedge remains B, but it points to E now.
-2.The twin() becomes the EB.
-3.The next() of the halfedge becomes EA.
-4.The face that the halfedge points to becomes ABE.
+
+1. The starting point of the halfedge remains B, but it points to E now.
+2. The twin() becomes the EB.
+3. The next() of the halfedge becomes EA.
+4. The face that the halfedge points to becomes ABE.
 
 for e after modification:
+
 1. Its position is descripted by $(E_x,E_y)=0.5*[(B_x,B_y)+(D_x,D_y)]$
 2. It points to ED.
 
 Similar operations will also be performed on vertices, faces, and so on. This includes, but is not limited to, the following changes:
-The half-edge pointed to by A becomes AE
-Now there are four faces(ABE,AED,DEC,BEC)
 
-The rest of the operations are very similar, so I won't go into further detail. However, you can find any information you are interested in within the code.
+- The half-edge pointed to by A becomes AE
+- Now there are four faces (ABE, AED, DEC, BEC)
 
+The rest of the operations are similar.
 
 ## Implementation
 
-Before providing my code, I would like to explain the parameters:
-k is the h shown in the picture. p,q,r,s,x,y are the new halfedge.
-```cpp
-  HalfedgeIter j, k, l, m, n, o, j_new, k_new, l_new, m_new, n_new, o_new, p_new, q_new, r_new, s_new,x_new,y_new;
-  k_new = k = e0->halfedge();
-  l_new = l = k->next();
-  j_new = j = l->next();
-  o_new = o = e0->halfedge()->twin();
-  m_new = m = o->next();
-  n_new = n = m->next();
-  p_new = newHalfedge();
-  q_new = newHalfedge();
-  r_new = newHalfedge();
-  s_new = newHalfedge();
-  x_new = newHalfedge();
-  y_new = newHalfedge();
-```
-a,b,c,d,e are the A,B,C,D,E shown in the picture.
-```cpp
-  VertexIter a, b, c, d, a_new, b_new, c_new, d_new, e_new;
-  a_new = a = j->vertex();
-  b_new = b = k->vertex();
-  c_new = c = l->vertex();
-  d_new = d = n->vertex();
-  e_new = newVertex();
-```
-Total solution code:
+Notations of the implementation are shown in the following figure:
+
+![notations](../../images/hw2/section2/hw2part5_notations.png)
+
+To assist coding, data structures and relevant values before and after the edge split are listed in the following tables.
+
+For the halfedges:
+
+{{ read_csv('../../tables/hw2/hw2split_halfedge.csv') }}
+
+Where the new halfedges are marked with single quotes, the same applies to the vertices, edges and faces.
+
+For the vertices:
+
+{{ read_csv('../../tables/hw2/hw2split_vertex.csv') }}
+
+For the edges:
+
+{{ read_csv('../../tables/hw2/hw2split_edge.csv') }}
+
+For the faces:
+
+{{ read_csv('../../tables/hw2/hw2split_face.csv') }}
+
+With help of the above tables, the implementation is simple as follows:
 ```cpp
 VertexIter HalfedgeMesh::splitEdge( EdgeIter e0 )
   {
@@ -140,14 +139,18 @@ VertexIter HalfedgeMesh::splitEdge( EdgeIter e0 )
   }
 ```
 
+With careful consideration of the pointers and values, the implementation is one-shot correct and has undergone no debugging process.
+
 ## Results
 
+The figure below is the original teapot.
 
-The figures below is the original teapot.
-![original teapot](../../images/hw2/section2/hw2part5_teapot.png){ width=49%\textwidth } 
+![original teapot](../../images/hw2/section2/hw2part5_teapot.png)
 
 After some edge splits:
-![splite teapot](../../images/hw2/section2/hw2part2_splite.png){ width=49%\textwidth } 
+
+![split teapot](../../images/hw2/section2/hw2part2_splite.png)
 
 After a combination of both edge splits and edge flips:
-![combination teapot](../../images/hw2/section2/hw2part5_combination.png){ width=49%\textwidth } 
+
+![combination teapot](../../images/hw2/section2/hw2part5_combination.png)

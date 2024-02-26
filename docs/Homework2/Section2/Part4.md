@@ -1,4 +1,4 @@
-# Part4: Edge Split
+# Part4: Edge Flip
 
 ## Methodology
 
@@ -99,7 +99,8 @@ EdgeIter HalfedgeMesh::flipEdge( EdgeIter e0 )
 ## Results
 
 
-The figure below show the original teapot.
+The figure below shows the original teapot.
+
 ![before flip](../../images/hw2/section2/hw2part4_before_flip.png){ width=49%\textwidth } 
 
 The following image shows the teapot after fliping 4 edges. I have highlighted the modifications with a yellow highlighter.

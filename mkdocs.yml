@@ -56,6 +56,8 @@ plugins:
       caption_position: bottom
       background: white
       shadow: true
+  - search
+  - table-reader
   # Make sure to put the print-site plugin at the END of the list
   - print-site:
       enabled: true

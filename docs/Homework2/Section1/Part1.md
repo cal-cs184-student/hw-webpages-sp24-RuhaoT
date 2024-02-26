@@ -30,28 +30,29 @@ In this task, we are required to implement the interpolate function of de Castel
 
 The implementation idea is simple: for each pair of points in the input `points` vector, calculate the intermediate point and store it in the `result` vector:
 ```cpp
-  std::vector<Vector3D> BezierPatch::evaluateStep(std::vector<Vector3D> const &points, double t) const
+  std::vector<Vector2D> BezierCurve::evaluateStep(std::vector<Vector2D> const &points)
   {
-    // TODO Part 2.
+    // TODO Part 1.
     // Implement by Ruhao Tian starts here
 
     // Create a vector iterator
-    std::vector<Vector3D>::const_iterator it = points.begin();
+    std::vector<Vector2D>::const_iterator it = points.begin();
 
     // Create a empty vector to store the result
-    std::vector<Vector3D> result;
+    std::vector<Vector2D> result;
 
     // Loop through the points and calculate the intermediate points
     // iterater should stop at the second last point
-    while (it != points.end() - 1) {
+    while (it != points.end() - 1)
+    {
       // Calculate the intermediate point
-      Vector3D intermediate = (1 - t) * (*it) + t * (*(it + 1));
+      Vector2D intermediate = (1 - t) * (*it) + t * (*(it + 1));
       // Add the intermediate point to the result vector
       result.push_back(intermediate);
       // Move the iterator to the next point
       it++;
     }
-    
+
     return result;
   }
 ```
@@ -65,5 +66,6 @@ A 6-point Bezier curve is created to test the implementation:
 ```
 
 The figures below show the drawn curve as well as levels of evaluation. The left one is the curve without moving control points, and the right one is the curve with control points manually moved.
+
 ![original curve](../../images/hw2/section1/hw2part1_curve3.png){ width=49%\textwidth } 
 ![moved curve](../../images/hw2/section1/hw2part1_curve3moved.png){ width=49%\textwidth }
