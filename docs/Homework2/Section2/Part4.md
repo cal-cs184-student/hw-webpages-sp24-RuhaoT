@@ -18,7 +18,7 @@ Similar operations will also be performed on vertices, faces, and so on. This in
 The half-edge pointed to by A becomes h.
 The faces change from ABD, BCD to ABC, ACD.
 
-The rest of the operations are very similar, so I won't go into further detail.
+The rest of the operations are very similar, so I won't go into further detail.But you can see any information in code.
 
 ## Implementation
 
