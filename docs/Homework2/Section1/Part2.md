@@ -2,17 +2,16 @@
 
 ## Methodology
 
-The main way to use the de Casteljau's algorithm on the surface is: 
-First, split the two-dimensional control point matrix into n one-dimensional matrices. Then, apply a method similar to Part 1 to each of these n one-dimensional matrices, obtaining coordinates for n points. Finally, use these n point coordinates for one more calculation to get the target point.
+The main way to use de Casteljau's algorithm on the surface is: 
+First, split the two-dimensional control point matrix into n one-dimensional matrices. Then, apply a method similar to Part 1 to each of these n one-dimensional matrices, obtaining coordinates for n points. Finally, use these n points coordinates for one more calculation to get the target point.
 
 The detailed steps are listed as follows:
 
-1. Given a two-dimensional control point matrix P (n rows and m colums). Split the two-dimensional control point matrix into n rows.
+1. Given a two-dimensional control point matrix P (n rows and m columns). Split the two-dimensional control point matrix into n rows.
 
-2. Apply the de Casteljau's algorithm separately to these n columns, iterate m-1 times to obtain n final points. This operation is similar to Part 1, where n control points and parameter $t$ are used to obtain points on the Bézier curve, except here the parameter is $u$.
+2. Apply the de Casteljau's algorithm separately to these n columns, and iterate m-1 times to obtain n final points. This operation is similar to Part 1, where n control points and parameter $t$ are used to obtain points on the Bézier curve, except here the parameter is $u$.
 
 3. Use these n points to perform the same operation(parameter is $v$), obtaining a point that lies on the Bézier patch.
-
 
 Summary: A total of $n * (m-1) + 1$ iterations are required. There are n columns in total, each column requires m-1 iterations. Finally, the n points are iterated once more.
 
@@ -21,7 +20,7 @@ Summary: A total of $n * (m-1) + 1$ iterations are required. There are n columns
 
 The task requires returning a point that lies on the Bézier surface.
 
-First, evaluates one step of the de Casteljau's algorithm using the given points and the scalar parameter t.
+First, evaluates one step of de Casteljau's algorithm using the given points and the scalar parameter t.
 ```cpp
   std::vector<Vector3D> BezierPatch::evaluateStep(std::vector<Vector3D> const &points, double t) const
   {
@@ -56,7 +55,7 @@ Second, fully evaluates de Casteljau's algorithm for a vector of points at scala
   }
 ```
 
-Finally,evaluates the Bezier patch at parameter (u, v)
+Finally, evaluate the Bezier patch at parameter (u, v)
 ```cpp
 
 Vector3D BezierPatch::evaluate(double u, double v) const 
@@ -81,6 +80,7 @@ Vector3D BezierPatch::evaluate(double u, double v) const
 
 ## Results
 
-
 The figures below show the drawn picture of the teapot.bez
+
+
 ![original curve](../../images/hw2/section1/hw2part2_teapot.png){ width=49%\textwidth } 
