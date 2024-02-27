@@ -1,24 +1,25 @@
-# Part4: Edge Flip
+# Part2: Bezier Surfaces with Separable 1D de Casteljau
 
 ## Methodology
 
-Get the flip image by modifying the given halfedge and related parameter pointers.Below is a example of modifications made to haldedge:
+Get the flip image by modifying the given halfedge and related parameter pointers. Below is an example of modifications made to a halfedge:
 
 
 As shown in the diagram, we now need to modify the pointers related to the halfedge h.
 
 ![example_halfedge](../../images/hw2/section2/hw2part4_flip_halfedge.png){width=49%\textwidth}
-After modification:
-1.The starting point of the halfedge becomes A, and it points to D.
-2.The twin() of the halfedge remains unchanged, but it now points to the modified halfedge in the opposite direction.
-3.The next() of the halfedge becomes CB.
-4.The face that the halfedge points to becomes ABC.
 
-Similar operations will also be performed on vertices, faces, and so on. This includes, but is not limited to, the following changes:
+After modification:
+1. The starting point of the halfedge becomes A, and it points to D.
+2. The twin() of the halfedge remains unchanged, but it now points to the modified halfedge in the opposite direction.
+3. The next() of the halfedge becomes CB.
+4. The face which the halfedge points to becomes ABC.
+
+Similar operations will also be performed on vertices, faces, and so on. This includes but is not limited to, the following changes:
 The half-edge pointed to by A becomes h.
 The faces change from ABD, BCD to ABC, ACD.
 
-The rest of the operations are very similar, so I won't go into further detail. However, you can find any information you are interested in within the code.
+The rest of the operations are very similar, so I won't go into further detail. But you can see any information in code.
 
 ## Implementation
 
@@ -103,5 +104,10 @@ The figure below shows the original teapot.
 
 ![before flip](../../images/hw2/section2/hw2part4_before_flip.png){ width=49%\textwidth } 
 
-The following image shows the teapot after fliping 4 edges. I have highlighted the modifications with a yellow highlighter.
+The following image shows the teapot after flipping 4 edges. I have highlighted the modifications with a yellow highlighter.
+
 ![after flip](../../images/hw2/section2/hw2part4_after_flip.png){ width=49%\textwidth } 
+
+## Debug experience
+
+I used to make a very simple but fatal problem, which I used HalfedgeCIter instead of HalfedgeIter. So, I found the program always occurred crashed. Finally, with the assistance of my partner and the ChatGPT, I noticed and understood the difference between CIter and Iter.
