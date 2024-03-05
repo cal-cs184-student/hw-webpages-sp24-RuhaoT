@@ -15,7 +15,7 @@ flowchart TB
   B --> D;
 ```
 
-Above sections will be explained in detail in the following sections.
+The above sections will be explained in detail in the following sections.
 
 ## Pixel Sample Generation
 
@@ -34,7 +34,7 @@ Each sample process consists of the following steps:
 
 ### Implementation
 
-Grid sampler provided in the starter code is used to generate the sample points:
+The grid sampler provided in the starter code is used to generate the sample points:
     
 ```cpp
       // generate a random sample
@@ -89,7 +89,7 @@ $$
 
 The ray direction in the camera space is the vector from the camera position to the sensor position. The sensor position is obtained by changing the third component of the pixel position to -1. 
 
-The camera-to-world matrix the given and do not need to be computed. 
+The camera-to-world matrix the given and does not need to be computed. 
 
 ### Implementation
 
@@ -218,7 +218,7 @@ If the part inside the square root is negative, there is no intersection. For th
 
 ### Implementation
 
-In the `test` function, whether the ray intersect with the sphere is tested:
+In the `test` function, whether the ray intersects with the sphere is tested:
 
 ```cpp
 bool Sphere::test(const Ray &r, double &t1, double &t2) const {
