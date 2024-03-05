@@ -208,7 +208,12 @@ $$
 where `o` is the ray origin, `d` is the ray direction, and `t` is the intersection point. The solution to the quadratic equation is given by:
 
 $$
-t = -d \cdot (o - c) \pm \sqrt{(d \cdot (o - c))^2 - (o - c) \cdot (o - c) + r^2}
+\begin{align*}
+t = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+a = d \cdot d \\
+b = 2(d \cdot (o - c)) \\
+c = (o - c) \cdot (o - c) - r^2
+\end{align*}
 $$
 
 If the part inside the square root is negative, there is no intersection. For this task, we check:
