@@ -1,4 +1,4 @@
-# Homework3 Part1
+# Part1: Ray Generation and Scene Intersection
 
 ## Overview: The ray generation and intersection pipeline
 
@@ -57,7 +57,7 @@ Finally, the ray is generated from the camera origin to the sample point, and th
       L_out += est_radiance_global_illumination(r);
 ```
 
-This process is repeated for `ns_aa` times to obtain the final pixel color.
+This process is repeated for `ns_aa` times to obtain the final pixel color. The result is averaged and assigned to the pixel buffer.
 
 ## Camera Ray Generation
 
@@ -67,7 +67,7 @@ The given pixel position is in the normalized image space. After obtaining its p
 
 ![CameraRayGeneration](../images/hw3/part1/hw3part1_crg.png)
 
-Transforming pixel position from the normalized image space to the camera space involves translating the pixel position to the camera space and scaling it by the camera width and height. The translation matix is given by:
+Transforming pixel position from the normalized image space to the camera space involves translating the pixel position to the camera space and scaling it by the camera width and height. The translation matrix is given by:
 
 $$
 \begin{bmatrix}
@@ -209,10 +209,10 @@ where `o` is the ray origin, `d` is the ray direction, and `t` is the intersecti
 
 $$
 \begin{align*}
-t = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
-a = d \cdot d \\
-b = 2(d \cdot (o - c)) \\
-c = (o - c) \cdot (o - c) - r^2
+t &= \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\
+a &= d \cdot d \\
+b &= 2(d \cdot (o - c)) \\
+c &= (o - c) \cdot (o - c) - r^2
 \end{align*}
 $$
 
