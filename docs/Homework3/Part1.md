@@ -271,14 +271,16 @@ bool Sphere::has_intersection(const Ray &r) const {
   }
 
   // test if t1 is in the valid range
-  if (t1 < r.min_t && t1 > r.max_t) {
-    return false;
+  if (t1 >= r.min_t && t1 <= r.max_t) {
+    r.max_t = t1;
+    return true;
+  }
+  else if (t2 >= r.min_t && t2 <= r.max_t) {
+    r.max_t = t2;
+    return true;
   }
 
-  // update max_t
-  r.max_t = t1;
-
-  return true;
+  return false;
 }
 ```
 
