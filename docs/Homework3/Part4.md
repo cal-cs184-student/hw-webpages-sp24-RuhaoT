@@ -164,3 +164,83 @@ Finally, here is the overall code. This is very similar to the previous section,
   return L_out;
 ```
 ## Results
+
+Here are the results for rendering the mth bounce of light with max_ray_depth set to 0, 1, 2, 3, 4, and 5 , and isAccumBounces=false, for CBbunny.dae
+                                  m=0
+
+![m=0](../images/hw3/part4/notsum_m=0.png)
+
+                                  m=1
+
+![m=1](../images/hw3/part4/notsum_m=1.png)
+
+                                  m=2
+
+![m=2](../images/hw3/part4/notsum_m=2.png)
+
+                                  m=3
+
+![m=3](../images/hw3/part4/notsum_m=3.png)
+
+                                  m=4
+
+![m=4](../images/hw3/part4/notsum_m=4.png)
+
+                                  m=5
+
+![m=5](../images/hw3/part4/notsum_m=5.png)
+
+Explanation: This is due to the fact that each time light reflects off a surface, some of its energy is absorbed or scattered, leading to an overall decrease in brightness with each subsequent bounce. As the number of reflections increases for the second and third bounces of light, the intensity of light diminishes, resulting in the images becoming progressively darker. 
+
+The main reason it improves the quality of rendered images is that multiple reflections simulate the paths of real light in the physical world, making the images more closely resemble what we see in reality. This enhances the realism of the images. For example, multiple reflections result in more accurate and realistic shadows, which contribute to a more lifelike appearance.
+
+Here are the results for rendered views with max_ray_depth set to 0, 1, 2, 3, 4, and 5  for CBbunny.dae
+                                  m=0
+
+![m=0](../images/hw3/part4/sum_m=0.png)
+
+                                  m=1
+
+![m=1](../images/hw3/part4/sum_m=1.png)
+
+                                  m=2
+
+![m=2](../images/hw3/part4/sum_m=2.png)
+
+                                  m=3
+
+![m=3](../images/hw3/part4/sum_m=3.png)
+
+                                  m=4
+
+![m=4](../images/hw3/part4/sum_m=4.png)
+
+                                  m=5
+
+![m=5](../images/hw3/part4/sum_m=5.png)
+
+Here are the results for outputing the Russian Roulette rendering with max_ray_depth set to 0, 1, 2, 3, 4, and 100  for CBbunny.dae
+
+                                  m=0
+
+![m=0](../images/hw3/part4/rus_sum_m=0.png)
+
+                                  m=1
+
+![m=1](../images/hw3/part4/rus_sum_m=1.png)
+
+                                  m=2
+
+![m=2](../images/hw3/part4/rus_sum_m=2.png)
+
+                                  m=3
+
+![m=3](../images/hw3/part4/rus_sum_m=3.png)
+
+                                  m=4
+
+![m=4](../images/hw3/part4/rus_sum_m=4.png)
+
+                                  m=5
+
+![m=100](../images/hw3/part4/rus_sum_m=100.png)
