@@ -233,9 +233,9 @@ This is quite similar to the approach discussed earlier, so I will provide the c
 
 Images with normal shading for a few large .dae files that I can only render with BVH acceleration.
 
-![BVH_1](../images/hw3/part2/example_bvh1_.png)
+![BVH_1](../images/hw3/part2/example_bvh1.png)
 
-![BVH_1](../images/hw3/part2/example_bvh2_.png)
+![BVH_1](../images/hw3/part2/example_bvh2.png)
 
 
 
