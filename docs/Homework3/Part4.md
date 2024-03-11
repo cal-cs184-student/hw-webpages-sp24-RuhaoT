@@ -8,7 +8,7 @@ Using $sampler.get_sample(pdf)$, a random sample direction is obtained from the 
 
 ### Implementation
 
-The function $f$ is defined in Part3.
+The function $f$ is defined in Part 3.
 
 ```cpp
   *wi = sampler.get_sample(pdf);
@@ -44,7 +44,7 @@ If $r.depth == max_ray_depth - 1$, this means the maximum depth has been reached
       L_out += one_bounce_radiance(r, isect);
     }
 ```
-Check if the maximum depth is reached. If true, return the L_out. Else continue operating the rest of codes.
+Check if the maximum depth is reached. If true, return the L_out. Otherwise, continue operating the rest of the code.
 
 ```cpp
   if (r.depth >= max_ray_depth - 1)
@@ -73,7 +73,7 @@ Now, calculate the radiance from extra bounces. First, obtain a ray from the hit
   ray.min_t = EPS_F;
 ```
 
-Next, recurse this equation until reaching max_ray_depth(this is checked before).
+Next, recurse this equation until reaching max_ray_depth(this was checked before).
 
 ```cpp
   if (bvh->intersect(ray, &isect_light))
@@ -121,7 +121,7 @@ Next, check whether to terminate early.
   }
 ```
 
-At last, normalize.Note that the code below has an additional parameter $probability$.
+At last, normalize. Note that the code below has an additional parameter $probability$.
 
 ```cpp
   L_out += (isect.bsdf->f(w_out, wi_sample_o) * at_least_one_bounce_radiance(ray, isect_light) * cos_theta / pdf) / possibility;
@@ -165,82 +165,153 @@ Finally, here is the overall code. This is very similar to the previous section,
 ```
 ## Results
 
-Here are the results for rendering the mth bounce of light with max_ray_depth set to 0, 1, 2, 3, 4, and 5 , and isAccumBounces=false, for CBbunny.dae
-                                  m=0
+### Here are some direct and indirect illumination.
+
+### Direct
+
+![m=0](../images/hw3/part4/direct_example1.png)
+
+![m=0](../images/hw3/part4/direct_example2.png)
+
+![m=0](../images/hw3/part4/direct_example3.png)
+
+### Indirect(only sum m=2,3,4,5)
+
+![m=0](../images/hw3/part4/indirect_example1.png)
+
+![m=0](../images/hw3/part4/indirect_example2.png)
+
+![m=0](../images/hw3/part4/indirect_example3.png)
+
+### Compare
+
+![m=0](../images/hw3/part4/direct_example2.png)
+
+![m=0](../images/hw3/part4/indirect_example2.png)
+
+We can find that the direct illumination is more smooth and lighter than the indirect one.
+
+### Here are the results for rendering the mth bounce of light with max_ray_depth set to 0, 1, 2, 3, 4, and 5, and isAccumBounces=false, for CBbunny.dae
+
+### m=0
 
 ![m=0](../images/hw3/part4/notsum_m=0.png)
 
-                                  m=1
+### m=1
 
 ![m=1](../images/hw3/part4/notsum_m=1.png)
 
-                                  m=2
+### m=2
 
 ![m=2](../images/hw3/part4/notsum_m=2.png)
 
-                                  m=3
+### m=3
 
 ![m=3](../images/hw3/part4/notsum_m=3.png)
 
-                                  m=4
+### m=4
 
 ![m=4](../images/hw3/part4/notsum_m=4.png)
 
-                                  m=5
+### m=5
 
 ![m=5](../images/hw3/part4/notsum_m=5.png)
 
-Explanation: This is due to the fact that each time light reflects off a surface, some of its energy is absorbed or scattered, leading to an overall decrease in brightness with each subsequent bounce. As the number of reflections increases for the second and third bounces of light, the intensity of light diminishes, resulting in the images becoming progressively darker. 
+### Reason
+
+This is because each time the light reflects off a surface, some of its energy is absorbed or scattered, leading to an overall decrease in brightness with each subsequent bounce. As the number of reflections increases for the second and third bounces of light, the intensity of light diminishes, resulting in the images becoming progressively darker. 
 
 The main reason it improves the quality of rendered images is that multiple reflections simulate the paths of real light in the physical world, making the images more closely resemble what we see in reality. This enhances the realism of the images. For example, multiple reflections result in more accurate and realistic shadows, which contribute to a more lifelike appearance.
 
-Here are the results for rendered views with max_ray_depth set to 0, 1, 2, 3, 4, and 5  for CBbunny.dae
-                                  m=0
+### Here are the results for rendered views with max_ray_depth set to 0, 1, 2, 3, 4, and 5  for CBbunny.dae
+
+### m=0
 
 ![m=0](../images/hw3/part4/sum_m=0.png)
 
-                                  m=1
+### m=1
 
 ![m=1](../images/hw3/part4/sum_m=1.png)
 
-                                  m=2
+### m=2
 
 ![m=2](../images/hw3/part4/sum_m=2.png)
 
-                                  m=3
+### m=3
 
 ![m=3](../images/hw3/part4/sum_m=3.png)
 
-                                  m=4
+### m=4
 
 ![m=4](../images/hw3/part4/sum_m=4.png)
 
-                                  m=5
+### m=5
 
 ![m=5](../images/hw3/part4/sum_m=5.png)
 
-Here are the results for outputing the Russian Roulette rendering with max_ray_depth set to 0, 1, 2, 3, 4, and 100  for CBbunny.dae
+### Compare
 
-                                  m=0
+We can find that as m increases, the picture becomes brighter and brighter.
+
+### Here are the results for outputing the Russian Roulette rendering with max_ray_depth set to 0, 1, 2, 3, 4, and 100  for CBbunny.dae
+
+### m=0
 
 ![m=0](../images/hw3/part4/rus_sum_m=0.png)
 
-                                  m=1
+### m=1
 
 ![m=1](../images/hw3/part4/rus_sum_m=1.png)
 
-                                  m=2
+### m=2
 
 ![m=2](../images/hw3/part4/rus_sum_m=2.png)
 
-                                  m=3
+### m=3
 
 ![m=3](../images/hw3/part4/rus_sum_m=3.png)
 
-                                  m=4
+### m=4
 
 ![m=4](../images/hw3/part4/rus_sum_m=4.png)
 
-                                  m=5
+### m=100
 
 ![m=100](../images/hw3/part4/rus_sum_m=100.png)
+
+
+### The following are rendering pictures of the same scene with different sampling rates.
+
+### sample-per-pixel rate=1
+
+![m=0](../images/hw3/part4/sample1.png)
+
+### sample-per-pixel rate=2
+
+![m=0](../images/hw3/part4/sample2.png)
+
+### sample-per-pixel rate=4
+
+![m=0](../images/hw3/part4/sample4.png)
+
+### sample-per-pixel rate=8
+
+![m=0](../images/hw3/part4/sample8.png)
+
+### sample-per-pixel rate=16
+
+![m=0](../images/hw3/part4/sample16.png)
+
+### sample-per-pixel rate=64
+
+![m=0](../images/hw3/part4/sample64.png)
+
+### sample-per-pixel rate=1024
+
+![m=0](../images/hw3/part4/sample12.png)
+
+
+### Compare
+
+As the sample-per-pixel rate increases, the image will become smoother and smoother. At the same time, the brightness will also increase slightly.
+
