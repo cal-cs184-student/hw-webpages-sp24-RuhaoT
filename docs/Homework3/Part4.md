@@ -195,27 +195,27 @@ We can find that the direct illumination is more smooth and lighter than the ind
 
 ### m=0
 
-![m=0](../images/hw3/part4/notsum_m=0.png)
+![m=0](../images/hw3/part4/notsum_m=00.png)
 
 ### m=1
 
-![m=1](../images/hw3/part4/notsum_m=1.png)
+![m=1](../images/hw3/part4/notsum_m=10.png)
 
 ### m=2
 
-![m=2](../images/hw3/part4/notsum_m=2.png)
+![m=2](../images/hw3/part4/notsum_m=20.png)
 
 ### m=3
 
-![m=3](../images/hw3/part4/notsum_m=3.png)
+![m=3](../images/hw3/part4/notsum_m=30.png)
 
 ### m=4
 
-![m=4](../images/hw3/part4/notsum_m=4.png)
+![m=4](../images/hw3/part4/notsum_m=40.png)
 
 ### m=5
 
-![m=5](../images/hw3/part4/notsum_m=5.png)
+![m=5](../images/hw3/part4/notsum_m=50.png)
 
 ### Reason
 
@@ -227,27 +227,27 @@ The main reason it improves the quality of rendered images is that multiple refl
 
 ### m=0
 
-![m=0](../images/hw3/part4/sum_m=0.png)
+![m=0](../images/hw3/part4/sum_m=00.png)
 
 ### m=1
 
-![m=1](../images/hw3/part4/sum_m=1.png)
+![m=1](../images/hw3/part4/sum_m=10.png)
 
 ### m=2
 
-![m=2](../images/hw3/part4/sum_m=2.png)
+![m=2](../images/hw3/part4/sum_m=20.png)
 
 ### m=3
 
-![m=3](../images/hw3/part4/sum_m=3.png)
+![m=3](../images/hw3/part4/sum_m=30.png)
 
 ### m=4
 
-![m=4](../images/hw3/part4/sum_m=4.png)
+![m=4](../images/hw3/part4/sum_m=40.png)
 
 ### m=5
 
-![m=5](../images/hw3/part4/sum_m=5.png)
+![m=5](../images/hw3/part4/sum_m=50.png)
 
 ### Compare
 
@@ -257,27 +257,27 @@ We can find that as m increases, the picture becomes brighter and brighter.
 
 ### m=0
 
-![m=0](../images/hw3/part4/rus_sum_m=0.png)
+![m=0](../images/hw3/part4/rus_sum_m=00.png)
 
 ### m=1
 
-![m=1](../images/hw3/part4/rus_sum_m=1.png)
+![m=1](../images/hw3/part4/rus_sum_m=10.png)
 
 ### m=2
 
-![m=2](../images/hw3/part4/rus_sum_m=2.png)
+![m=2](../images/hw3/part4/rus_sum_m=20.png)
 
 ### m=3
 
-![m=3](../images/hw3/part4/rus_sum_m=3.png)
+![m=3](../images/hw3/part4/rus_sum_m=30.png)
 
 ### m=4
 
-![m=4](../images/hw3/part4/rus_sum_m=4.png)
+![m=4](../images/hw3/part4/rus_sum_m=40.png)
 
 ### m=100
 
-![m=100](../images/hw3/part4/rus_sum_m=100.png)
+![m=100](../images/hw3/part4/rus_sum_m=1000.png)
 
 
 ### The following are rendering pictures of the same scene with different sampling rates.
