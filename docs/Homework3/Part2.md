@@ -258,21 +258,21 @@ It costs less than 1s.
 
 For the other images:
 ### beast.dae
-                without
+                without BVH
 
 ![without](../images/hw3/part2/time2.PNG)
               
-                with
+                with BVH
 
 ![with](../images/hw3/part2/time3.PNG)
 
 ### beetle.dae 
 
-                without
+                without BVH
 
 ![without](../images/hw3/part2/time4.PNG)
               
-                with
+                with BVH
                 
 ![with](../images/hw3/part2/time5.PNG)
 
