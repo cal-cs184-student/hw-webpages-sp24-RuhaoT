@@ -2,7 +2,7 @@
 
 ## Welcome!
 
-This is the write-up website for CS184 spring 2024 assignments. Currently, we have Homework 1, Homework 2, and Homework 3 available.
+This is the write-up website for CS184 spring 2024 assignments. Currently, we have Homework 1, Homework 2, and Homework 3 available. We are currently working on Homework 4 and will update the website as soon as possible.
 
 ## How to use this website
 
