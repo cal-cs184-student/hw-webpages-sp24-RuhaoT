@@ -42,6 +42,6 @@ Then we tested the simulation with different densities and spring constant.
 
 By varying the density and the spring constant the following effects can be observed:
 
-- **Density**: When density is particularly high, the cloth looks squished and the space between layers of cloth is very small, compared to the normal setting. When density is very low, the spring force will cause the cloth to vibrate significantly.
-- **Spring Constant**: When the spring constant is high, the internal force causes the cloth to vibrate significantly, quite similar to the effect of low density. When the spring constant is low, the cloth looks weaker to bend, and the space between layers of cloth is also smaller.
+- **Density**: When density is particularly high, the cloth looks squished and the space between layers of cloth is very small, compared to the normal setting. When density is very low, the space between layers of cloth is larger, and the cloth looks weaker to bend.
+- **Spring Constant**: When the spring constant is high, the internal force causes the cloth to better maintain its shape, quite similar to the effect of low density. When the spring constant is low, the cloth looks weaker to bend, and the space between layers of cloth is also smaller.
 - **Total effect**: It is noticeable that as long as the multiplier of density and spring constant remains the same, the cloth will have similar behavior. For example, when the density is 150 and the spring constant is 5000, the cloth behaves similarly to when the density is 1.5 and the spring constant is 5000.
