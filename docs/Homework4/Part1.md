@@ -2,6 +2,7 @@
 
 ## Results
 
+Note: The blurriness comes from the low resolution of the screenshot.
 The following images show the result of scene/pinned2.json at default parameters:
 
 ![pinned2_1](../images/hw4/part_1/pinned2_1.PNG){ width=49% }
