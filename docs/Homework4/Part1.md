@@ -11,6 +11,11 @@ The following images show the result of scene/pinned2.json at default parameters
 
 ![pinned2_3](../images/hw4/part_1/pinned2_3.PNG){ width=49% }
 
+
+
+
+
+
 **Without any shearing constraints**
 
 ![without](../images/hw4/part_1/without.PNG){ width=49% }
