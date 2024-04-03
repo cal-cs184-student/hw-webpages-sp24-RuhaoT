@@ -1,0 +1,1727 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Part4/">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>Part5: Shaders - CS184 Assignments</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../css/print-site-material.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part5-shaders" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CS184 Assignments" class="md-header__button md-logo" aria-label="CS184 Assignments" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.82 16.342 5.692-3.287A.98.98 0 0 0 24 12.21V5.635a.98.98 0 0 0-.488-.846l-5.693-3.286a.98.98 0 0 0-.977 0L11.15 4.789a.98.98 0 0 0-.489.846v11.747L6.67 19.686l-3.992-2.304v-4.61l3.992-2.304 2.633 1.52V8.896L7.158 7.658a.98.98 0 0 0-.977 0L.488 10.945a.98.98 0 0 0-.488.846v6.573a.98.98 0 0 0 .488.847l5.693 3.286a.981.981 0 0 0 .977 0l5.692-3.286a.98.98 0 0 0 .489-.846V6.618l.072-.041 3.92-2.263 3.99 2.305v4.609l-3.99 2.304-2.63-1.517v3.092l2.14 1.236a.981.981 0 0 0 .978 0v-.001Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CS184 Assignments
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part5: Shaders
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Homework1/Overview/" class="md-tabs__link">
+          
+  
+  Homework1
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Homework2/Overview/" class="md-tabs__link">
+          
+  
+  Homework2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Homework3/Overview/" class="md-tabs__link">
+          
+  
+  Homework3
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Overview/" class="md-tabs__link">
+          
+  
+  Homework4
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CS184 Assignments" class="md-nav__button md-logo" aria-label="CS184 Assignments" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.82 16.342 5.692-3.287A.98.98 0 0 0 24 12.21V5.635a.98.98 0 0 0-.488-.846l-5.693-3.286a.98.98 0 0 0-.977 0L11.15 4.789a.98.98 0 0 0-.489.846v11.747L6.67 19.686l-3.992-2.304v-4.61l3.992-2.304 2.633 1.52V8.896L7.158 7.658a.98.98 0 0 0-.977 0L.488 10.945a.98.98 0 0 0-.488.846v6.573a.98.98 0 0 0 .488.847l5.693 3.286a.981.981 0 0 0 .977 0l5.692-3.286a.98.98 0 0 0 .489-.846V6.618l.072-.041 3.92-2.263 3.99 2.305v4.609l-3.99 2.304-2.63-1.517v3.092l2.14 1.236a.981.981 0 0 0 .978 0v-.001Z"/></svg>
+
+    </a>
+    CS184 Assignments
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Homework1
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Homework1
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework1/Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Homework 1: Rasterizer Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework1/Task1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task 1: Drawing Single-Color Triangles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework1/Task2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task 2: Antialiasing by Supersampling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework1/Task3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task 3: Transforms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework1/Task4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task 4: Barycentric coordinates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework1/Task5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task 5: "Pixel sampling" for texture mapping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework1/Task6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task 6: "Level sampling" with mipmaps for texture mapping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Homework2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Homework2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework2/Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Homework2: Meshedit Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Section1
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Section1
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework2/Section1/Part1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 1: Bezier Curves with 1D de Casteljau Subdivision
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework2/Section1/Part2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part2: Bezier Surfaces with Separable 1D de Casteljau
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Section2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Section2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework2/Section2/Part3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 3: Area-Weighted Vertex Normals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework2/Section2/Part4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part2: Bezier Surfaces with Separable 1D de Casteljau
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework2/Section2/Part5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 5: Edge Split
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework2/Section2/Part6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 6: Loop Subdivision for Mesh Upsampling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Homework3
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Homework3
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework3/Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Homework3: Pathtracer Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework3/Part1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part1: Ray Generation and Scene Intersection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework3/Part2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 2: Bounding Volume Hierarchy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework3/Part3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part3: Direct Illumination
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework3/Part4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part4: Global Illumination
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Homework3/Part5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part5: Adaptive Sampling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Homework4
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Homework4
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Homework4: Clothsim Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 1: Masses and springs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 2: Simulation via numerical integration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 3: Handling collisions with other objects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part4: Handling self-collisions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Part5: Shaders
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Part5: Shaders
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#task-1-shader-program-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Shader program overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-2-bling-phong-shading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Bling Phong Shading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task 2: Bling Phong Shading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#methodology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methodology
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-3-texture-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Texture Mapping
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-4-bump-mapping-and-displacement-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 4: Bump Mapping and Displacement Mapping
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task 4: Bump Mapping and Displacement Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementation-of-bump-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation of Bump Mapping
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-of-displacement-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation of Displacement Mapping
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-5-environment-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 5: Environment Mapping
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task 5: Environment Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#methodology-and-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methodology and Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#task-1-shader-program-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Shader program overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-2-bling-phong-shading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Bling Phong Shading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task 2: Bling Phong Shading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#methodology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methodology
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-3-texture-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Texture Mapping
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-4-bump-mapping-and-displacement-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 4: Bump Mapping and Displacement Mapping
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task 4: Bump Mapping and Displacement Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementation-of-bump-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation of Bump Mapping
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-of-displacement-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation of Displacement Mapping
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-5-environment-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 5: Environment Mapping
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task 5: Environment Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#methodology-and-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methodology and Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+
+    <a href="../../print_page/" title="Print Site" class="md-content__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3Z"/></svg>
+    </a>
+
+
+
+                  
+
+
+<h1 id="part5-shaders">Part5: Shaders</h1>
+<h2 id="task-1-shader-program-overview">Task 1: Shader program overview</h2>
+<p>Shader programs execute on the GPU, run in parallel, and are written in GLSL in this assignment. These programs cover several parts of the graphic pipeline. In this assignment, two types of shaders are used: vertex and fragment shaders. The vertex shader is responsible for transforming the vertices of the object, while the fragment shader is responsible for coloring the pixels of the object.</p>
+<p>The vertex shader takes the vertex position, normal, and texture coordinates as input and transforms the vertex position to the screen space. It may also change the normal and texture coordinates to achieve different effects, such as bump mapping. The processed information will be passed to the fragment shader for further processing.</p>
+<p>The fragment shader takes the interpolated vertex position, normal, and texture coordinates as input and colors the pixel based on the lighting model and texture mapping. It will be automatically linked to the corresponding vertex shader program if there is one. Together, these two shaders form a shader program that renders objects will different materials and lighting effects.</p>
+<p>This flowchart shows the general process of the shader program:
+<pre class="mermaid"><code>flowchart TB
+  A[Application];
+  B[Vertex Shader];
+  C[Fragment Shader];
+  D[Screen Output];
+  A --&gt;|Vertex Data| B;
+  B --&gt;|Intepolated Data| C;
+  C --&gt;|Pixel Color| D;</code></pre></p>
+<h2 id="task-2-bling-phong-shading">Task 2: Bling Phong Shading</h2>
+<h3 id="methodology">Methodology</h3>
+<p>In this part, we implement the Bling Phong shading model in the fragment shader. The Bling Phong shading model consists of three components: ambient, diffuse, and specular. </p>
+<div class="arithmatex">\[
+L = L_\text{ambient} + L_\text{diffuse} + L_\text{specular}
+\]</div>
+<p>The ambient component is the light that is reflected by the object from the environment. Bling-Phong shading assumes that the ambient light is constant for each part of the object. The ambient component is calculated by multiplying the ambient coefficient, i.e., how much ambient light is reflected, with the ambient light intensity:</p>
+<div class="arithmatex">\[
+L_\text{ambient} = k_\text{ambient} \cdot I_\text{ambient}
+\]</div>
+<p>The diffuse component is the diffuse reflection of the object. It is equal to the total irradiance arriving at the surface. Given the radiosity <span class="arithmatex">\(I\)</span> of the light source at unit distance, the radiosity of the light source at distance <span class="arithmatex">\(r\)</span> is <span class="arithmatex">\(I/r^2\)</span>. However, according to Lambert's cosine law, the irradiance is proportional to the cosine of the angle between the light source and the normal of the object. Therefore, the diffuse component is calculated as follows:</p>
+<div class="arithmatex">\[
+L_\text{diffuse} = k_\text{diffuse} \cdot \left(I / r^2 \right) \cdot \max(0, \vec{L} \cdot \vec{N})
+\]</div>
+<p>The specular component is the specular reflection of the object. Specular reflection can only be observed within a certain range of angles. In Bling-Phong shading, a half-vector is used to calculate the specular reflection. The half-vector is the vector that bisects the angle between the light source direction <span class="arithmatex">\(\vec{l}\)</span> and the eye direction <span class="arithmatex">\(\vec{v}\)</span>. The angle between the half-vector and the normal vector <span class="arithmatex">\(\vec{n}\)</span> is used to calculate the degradation of the specular reflection:</p>
+<div class="arithmatex">\[
+cos(\theta)^{p} = \frac{\vec{h} \cdot \vec{n}}{\left\| \vec{h} \right\| \cdot \left\| \vec{n} \right\|}
+\]</div>
+<p>Where <span class="arithmatex">\(p\)</span> is the shininess coefficient. The specular component is calculated as follows:</p>
+<div class="arithmatex">\[
+L_\text{specular} = k_\text{specular} \cdot I \cdot \max(0, cos(\theta))^p
+\]</div>
+<p>By adjusting the ambient, diffuse, and specular coefficients, different materials can be simulated.</p>
+<h3 id="implementation">Implementation</h3>
+<p>In our implementation, we manually choose a set of Bling-Phong shading parameters as follows:</p>
+<div class="language-cpp highlight"><span class="filename">C++</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">  </span><span class="c1">// define ka, kd, ks, la, and p</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">ka</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span><span class="w"> </span><span class="c1">// Ambient reflection coefficient</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">kd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.8</span><span class="p">;</span><span class="w"> </span><span class="c1">// Diffuse reflection coefficient</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">ks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span><span class="w"> </span><span class="c1">// Specular reflection coefficient</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="n">vec3</span><span class="w"> </span><span class="n">la</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec3</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// Ambient light intensity</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">32.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Shininess</span>
+</span></code></pre></div>
+<p>First, the output is initialized as a zero vector and the ambient, diffuse and specular component is added, respectively:</p>
+<div class="language-cpp highlight"><span class="filename">C++</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">  </span><span class="n">out_color</span><span class="p">.</span><span class="n">xyz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec3</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="c1">// ambient reflection</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="n">out_color</span><span class="p">.</span><span class="n">xyz</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">ka</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">la</span><span class="p">;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="c1">// diffuse reflection</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">length</span><span class="p">(</span><span class="n">u_light_pos</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">v_position</span><span class="p">.</span><span class="n">xyz</span><span class="p">);</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="n">vec3</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">normalize</span><span class="p">(</span><span class="n">u_light_pos</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">v_position</span><span class="p">.</span><span class="n">xyz</span><span class="p">);</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="n">vec3</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">normalize</span><span class="p">(</span><span class="n">v_normal</span><span class="p">.</span><span class="n">xyz</span><span class="p">);</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="n">out_color</span><span class="p">.</span><span class="n">xyz</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">kd</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">u_light_intensity</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">),</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="c1">// specular reflection</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">  </span><span class="n">vec3</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">normalize</span><span class="p">(</span><span class="n">u_cam_pos</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">v_position</span><span class="p">.</span><span class="n">xyz</span><span class="p">);</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">  </span><span class="n">vec3</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">normalize</span><span class="p">(</span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">  </span><span class="n">out_color</span><span class="p">.</span><span class="n">xyz</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">ks</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">u_light_intensity</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">max</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">h</span><span class="p">),</span><span class="w"> </span><span class="mf">0.0</span><span class="p">),</span><span class="w"> </span><span class="n">p</span><span class="p">);</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">  </span><span class="n">out_color</span><span class="p">.</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span></code></pre></div>
+<h3 id="results">Results</h3>
+<p>The following images show the result of Bling Phong shading with ambient only, diffuse only, specular only, and all components combined.</p>
+<p><strong>Ambient Only and Diffuse Only</strong></p>
+<p><a class="glightbox" href="../../images/hw4/part5/hw4part5_phongambient.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Ambient Only" src="../../images/hw4/part5/hw4part5_phongambient.png" width="49%" /></a>
+<a class="glightbox" href="../../images/hw4/part5/hw4part5_diffuse.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Diffuse Only" src="../../images/hw4/part5/hw4part5_diffuse.png" width="49%" /></a></p>
+<p><strong>Specular Only and All Components</strong></p>
+<p><a class="glightbox" href="../../images/hw4/part5/hw4part5_specular.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Specular Only" src="../../images/hw4/part5/hw4part5_specular.png" width="49%" /></a>
+<a class="glightbox" href="../../images/hw4/part5/hw4part5_phongentire.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="All Components" src="../../images/hw4/part5/hw4part5_phongentire.png" width="49%" /></a></p>
+<h2 id="task-3-texture-mapping">Task 3: Texture Mapping</h2>
+<p>In this part, we implement texture mapping in the fragment shader:</p>
+<div class="language-cpp highlight"><span class="filename">C++</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">  </span><span class="n">out_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">texture</span><span class="p">(</span><span class="n">u_texture_1</span><span class="p">,</span><span class="w"> </span><span class="n">v_uv</span><span class="p">);</span>
+</span></code></pre></div>
+<p>The texture is replaced by an image downloaded from Berkeley Reddit:</p>
+<p><a class="glightbox" href="../../images/hw4/part5/hw4part5_texture_1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Texture" src="../../images/hw4/part5/hw4part5_texture_1.png" width="49%" /></a></p>
+<p>The following image shows the result of texture mapping:</p>
+<p><a class="glightbox" href="../../images/hw4/part5/hw4part5_texture.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Texture Mapping" src="../../images/hw4/part5/hw4part5_texture.png" /></a></p>
+<h2 id="task-4-bump-mapping-and-displacement-mapping">Task 4: Bump Mapping and Displacement Mapping</h2>
+<h3 id="implementation-of-bump-mapping">Implementation of Bump Mapping</h3>
+<p>In this section, we implemented Bump Mapping in the fragment shader by sampling a chosen height map. </p>
+<p>First, a local space disturbance vector is created by sampling the height map:</p>
+<div class="language-cpp highlight"><span class="filename">C++</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">  </span><span class="c1">// calculate dU, dV</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">dU</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">h</span><span class="p">(</span><span class="n">vec2</span><span class="p">(</span><span class="n">v_uv</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">u_texture_2_size</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">v_uv</span><span class="p">.</span><span class="n">y</span><span class="p">))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">h</span><span class="p">(</span><span class="n">v_uv</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">u_normal_scaling</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">u_height_scaling</span><span class="p">;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">dV</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">h</span><span class="p">(</span><span class="n">vec2</span><span class="p">(</span><span class="n">v_uv</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">v_uv</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">u_texture_2_size</span><span class="p">.</span><span class="n">y</span><span class="p">))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">h</span><span class="p">(</span><span class="n">v_uv</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">u_normal_scaling</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">u_height_scaling</span><span class="p">;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="c1">// calculate local space normal</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="n">vec3</span><span class="w"> </span><span class="n">n0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec3</span><span class="p">(</span><span class="o">-</span><span class="n">dU</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">dV</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Then, a <span class="arithmatex">\(TBN\)</span> matrix is created ahead of time to convert local space vectors to object space:</p>
+<div class="language-cpp highlight"><span class="filename">C++</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="w">  </span><span class="c1">// calculate local space tangent</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="n">vec3</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v_tangent</span><span class="p">.</span><span class="n">xyz</span><span class="p">;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="c1">// calculate local space bitangent</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="n">vec3</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v_normal</span><span class="p">.</span><span class="n">xyz</span><span class="p">;</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="n">vec3</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cross</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">);</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="c1">// calculate TBN matrix</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span><span class="n">mat3</span><span class="w"> </span><span class="n">TBN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mat3</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Finally, the normal is transformed from local space to object space:</p>
+<div class="language-cpp highlight"><span class="filename">C++</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="w">  </span><span class="c1">// calculate normal in world space</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="n">vec3</span><span class="w"> </span><span class="n">nd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TBN</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n0</span><span class="p">;</span>
+</span></code></pre></div>
+<p>This normal is then used in the Bling Phong shading model to calculate the final color.</p>
+<h3 id="implementation-of-displacement-mapping">Implementation of Displacement Mapping</h3>
+<p>Different from Bump Mapping, in displacement mapping the coordinates of the input vector is also modified in the vertex shader:</p>
+<div class="language-cpp highlight"><span class="filename">C++</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="w">  </span><span class="n">v_position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u_model</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">in_position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">v_normal</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">h</span><span class="p">(</span><span class="n">v_uv</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">u_height_scaling</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Where <span class="arithmatex">\(h(v_uv)\)</span> is the height map function. The vertex position is moved along the normal direction by the height map value.</p>
+<h3 id="results_1">Results</h3>
+<p>A height map from Wikipedia is used in this part:</p>
+<p><a class="glightbox" href="../../images/hw4/part5/hw4part5_texture_2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Height Map" src="../../images/hw4/part5/hw4part5_texture_2.png" width="49%" /></a></p>
+<p>The following images show the result of bump mapping and displacement mapping:</p>
+<p><strong>Bump Mapping with Coarseness 16 and 128</strong></p>
+<p><a class="glightbox" href="../../images/hw4/part5/hw4part5_bump16.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Bump Mapping Coarseness 16" src="../../images/hw4/part5/hw4part5_bump16.png" width="49%" /></a>
+<a class="glightbox" href="../../images/hw4/part5/hw4part5_bump128.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Bump Mapping Coarseness 128" src="../../images/hw4/part5/hw4part5_bump128.png" width="49%" /></a></p>
+<p><strong>Displacement Mapping with Coarseness 16 and 128</strong></p>
+<p><a class="glightbox" href="../../images/hw4/part5/hw4part5_displacement16.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Displacement Mapping Coarseness 16" src="../../images/hw4/part5/hw4part5_displacement16.png" width="49%" /></a>
+<a class="glightbox" href="../../images/hw4/part5/hw4part5_displacement128.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Displacement Mapping Coarseness 128" src="../../images/hw4/part5/hw4part5_displacement128.png" width="49%" /></a></p>
+<p>According to the figures, the sphere with bump mapping has a smooth round shape despite the rough surface caused by the height map. Different from bump mapping, the sphere with displacement mapping has a rough surface and the shape is distorted. This is because the vertex position is modified in the vertex shader, which changes the shape of the object.</p>
+<p>Coarseness also affects the result of bump mapping and displacement mapping. The results with less coarseness have more concentrated and brighter specular reflections, while the highlights are more diffused with more coarseness.</p>
+<h2 id="task-5-environment-mapping">Task 5: Environment Mapping</h2>
+<h3 id="methodology-and-implementation">Methodology and Implementation</h3>
+<p>In this part, we simulate mirror reflection by casting a ray from the camera position to the object and then reflecting it to the environment map.</p>
+<p>Given the camera position and fragment position, the eye ray direction is calculated as follows:
+<div class="language-cpp highlight"><span class="filename">C++</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="w">  </span><span class="c1">// Calculate the eye ray direction</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="n">vec3</span><span class="w"> </span><span class="n">eye_ray_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">normalize</span><span class="p">(</span><span class="n">v_position</span><span class="p">.</span><span class="n">xyz</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">u_cam_pos</span><span class="p">);</span>
+</span></code></pre></div></p>
+<p>The reflected ray direction is calculated with the help of object normal:
+<div class="language-cpp highlight"><span class="filename">C++</span><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="w">  </span><span class="c1">// Calculate the reflection direction</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="n">vec3</span><span class="w"> </span><span class="n">reflection_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reflect</span><span class="p">(</span><span class="n">eye_ray_dir</span><span class="p">,</span><span class="w"> </span><span class="n">normalize</span><span class="p">(</span><span class="n">v_normal</span><span class="p">.</span><span class="n">xyz</span><span class="p">));</span>
+</span></code></pre></div></p>
+<p>Finally, the environmental map is sampled with the same technique in previous tasks:
+<div class="language-cpp highlight"><span class="filename">C++</span><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="w">  </span><span class="c1">// sample the environment map</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="n">out_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">texture</span><span class="p">(</span><span class="n">u_texture_cubemap</span><span class="p">,</span><span class="w"> </span><span class="n">reflection_dir</span><span class="p">);</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="n">out_color</span><span class="p">.</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span></code></pre></div></p>
+<h3 id="results_2">Results</h3>
+<p>The image below shows the result of environment mapping. The object is a sphere with a mirror reflection. The environment map is a skybox with a mountain view.</p>
+<p><a class="glightbox" href="../../images/hw4/part5/hw4part5_mirror.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Environment Mapping" src="../../images/hw4/part5/hw4part5_mirror.png" /></a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+        <script src="../../js/print-site.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

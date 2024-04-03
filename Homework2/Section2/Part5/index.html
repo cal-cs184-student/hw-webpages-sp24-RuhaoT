@@ -1,0 +1,1745 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Part4/">
+      
+      
+        <link rel="next" href="../Part6/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>Part 5: Edge Split - CS184 Assignments</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part-5-edge-split" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="CS184 Assignments" class="md-header__button md-logo" aria-label="CS184 Assignments" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.82 16.342 5.692-3.287A.98.98 0 0 0 24 12.21V5.635a.98.98 0 0 0-.488-.846l-5.693-3.286a.98.98 0 0 0-.977 0L11.15 4.789a.98.98 0 0 0-.489.846v11.747L6.67 19.686l-3.992-2.304v-4.61l3.992-2.304 2.633 1.52V8.896L7.158 7.658a.98.98 0 0 0-.977 0L.488 10.945a.98.98 0 0 0-.488.846v6.573a.98.98 0 0 0 .488.847l5.693 3.286a.981.981 0 0 0 .977 0l5.692-3.286a.98.98 0 0 0 .489-.846V6.618l.072-.041 3.92-2.263 3.99 2.305v4.609l-3.99 2.304-2.63-1.517v3.092l2.14 1.236a.981.981 0 0 0 .978 0v-.001Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CS184 Assignments
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part 5: Edge Split
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Homework1/Overview/" class="md-tabs__link">
+          
+  
+  Homework1
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../Overview/" class="md-tabs__link">
+          
+  
+  Homework2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Homework3/Overview/" class="md-tabs__link">
+          
+  
+  Homework3
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Homework4/Overview/" class="md-tabs__link">
+          
+  
+  Homework4
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CS184 Assignments" class="md-nav__button md-logo" aria-label="CS184 Assignments" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.82 16.342 5.692-3.287A.98.98 0 0 0 24 12.21V5.635a.98.98 0 0 0-.488-.846l-5.693-3.286a.98.98 0 0 0-.977 0L11.15 4.789a.98.98 0 0 0-.489.846v11.747L6.67 19.686l-3.992-2.304v-4.61l3.992-2.304 2.633 1.52V8.896L7.158 7.658a.98.98 0 0 0-.977 0L.488 10.945a.98.98 0 0 0-.488.846v6.573a.98.98 0 0 0 .488.847l5.693 3.286a.981.981 0 0 0 .977 0l5.692-3.286a.98.98 0 0 0 .489-.846V6.618l.072-.041 3.92-2.263 3.99 2.305v4.609l-3.99 2.304-2.63-1.517v3.092l2.14 1.236a.981.981 0 0 0 .978 0v-.001Z"/></svg>
+
+    </a>
+    CS184 Assignments
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Homework1
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Homework1
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework1/Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Homework 1: Rasterizer Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework1/Task1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task 1: Drawing Single-Color Triangles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework1/Task2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task 2: Antialiasing by Supersampling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework1/Task3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task 3: Transforms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework1/Task4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task 4: Barycentric coordinates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework1/Task5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task 5: "Pixel sampling" for texture mapping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework1/Task6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task 6: "Level sampling" with mipmaps for texture mapping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Homework2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Homework2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Homework2: Meshedit Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Section1
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Section1
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Section1/Part1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 1: Bezier Curves with 1D de Casteljau Subdivision
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Section1/Part2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part2: Bezier Surfaces with Separable 1D de Casteljau
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Section2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Section2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 3: Area-Weighted Vertex Normals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part2: Bezier Surfaces with Separable 1D de Casteljau
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Part 5: Edge Split
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Part 5: Edge Split
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#methodology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methodology
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Results
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 6: Loop Subdivision for Mesh Upsampling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Homework3
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Homework3
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework3/Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Homework3: Pathtracer Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework3/Part1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part1: Ray Generation and Scene Intersection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework3/Part2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 2: Bounding Volume Hierarchy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework3/Part3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part3: Direct Illumination
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework3/Part4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part4: Global Illumination
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework3/Part5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part5: Adaptive Sampling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Homework4
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Homework4
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework4/Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Homework4: Clothsim Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework4/Part1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 1: Masses and springs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework4/Part2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 2: Simulation via numerical integration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework4/Part3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 3: Handling collisions with other objects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework4/Part4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part4: Handling self-collisions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Homework4/Part5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part5: Shaders
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#methodology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methodology
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Results
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+
+    <a href="../../../print_page/" title="Print Site" class="md-content__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3Z"/></svg>
+    </a>
+
+
+
+                  
+
+
+<h1 id="part-5-edge-split">Part 5: Edge Split</h1>
+<h2 id="methodology">Methodology</h2>
+<p>The method of edge splitting is similar to Part 4, but it will be a bit more complex. This requires us to consider a new vertex and the 6 new halfedges that are created. We adjust their values and pointers to accomplish the edge split. Here is a simple example explaining the adjustment of pointers for the halfedge h and the new vertex E.</p>
+<p><a class="glightbox" href="../../../images/hw2/section2/hw2part5_example.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="example" src="../../../images/hw2/section2/hw2part5_example.png" width="49%\textwidth" /></a> </p>
+<p>for h after modification:</p>
+<ol>
+<li>The starting point of the halfedge remains B, but it points to E now.</li>
+<li>The twin() becomes the EB.</li>
+<li>The next() of the halfedge becomes EA.</li>
+<li>The face that the halfedge points to becomes ABE.</li>
+</ol>
+<p>for e after modification:</p>
+<ol>
+<li>Its position is descripted by <span class="arithmatex">\((E_x,E_y)=0.5*[(B_x,B_y)+(D_x,D_y)]\)</span></li>
+<li>It points to ED.</li>
+</ol>
+<p>Similar operations will also be performed on vertices, faces, and so on. This includes, but is not limited to, the following changes:</p>
+<ul>
+<li>The half-edge pointed to by A becomes AE</li>
+<li>Now there are four faces (ABE, AED, DEC, BEC)</li>
+</ul>
+<p>The rest of the operations are similar.</p>
+<h2 id="implementation">Implementation</h2>
+<p>Notations of the implementation are shown in the following figure:</p>
+<p><a class="glightbox" href="../../../images/hw2/section2/hw2part5_notations.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="notations" src="../../../images/hw2/section2/hw2part5_notations.png" /></a></p>
+<p>To assist coding, data structures and relevant values before and after the edge split are listed in the following tables.</p>
+<p>For the halfedges:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">next</th>
+<th style="text-align: left;">twin</th>
+<th style="text-align: left;">vertex</th>
+<th style="text-align: left;">edge</th>
+<th style="text-align: left;">face</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">j</td>
+<td style="text-align: left;">k</td>
+<td style="text-align: left;">j_twin</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: left;">ab</td>
+<td style="text-align: left;">f1</td>
+</tr>
+<tr>
+<td style="text-align: left;">k</td>
+<td style="text-align: left;">l</td>
+<td style="text-align: left;">o</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: left;">bc</td>
+<td style="text-align: left;">f1</td>
+</tr>
+<tr>
+<td style="text-align: left;">l</td>
+<td style="text-align: left;">j</td>
+<td style="text-align: left;">l_twin</td>
+<td style="text-align: left;">c</td>
+<td style="text-align: left;">ca</td>
+<td style="text-align: left;">f1</td>
+</tr>
+<tr>
+<td style="text-align: left;">m</td>
+<td style="text-align: left;">n</td>
+<td style="text-align: left;">m_twin</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: left;">bd</td>
+<td style="text-align: left;">f2</td>
+</tr>
+<tr>
+<td style="text-align: left;">n</td>
+<td style="text-align: left;">o</td>
+<td style="text-align: left;">n_twin</td>
+<td style="text-align: left;">d</td>
+<td style="text-align: left;">dc</td>
+<td style="text-align: left;">f2</td>
+</tr>
+<tr>
+<td style="text-align: left;">o</td>
+<td style="text-align: left;">m</td>
+<td style="text-align: left;">k</td>
+<td style="text-align: left;">c</td>
+<td style="text-align: left;">bc</td>
+<td style="text-align: left;">f2</td>
+</tr>
+<tr>
+<td style="text-align: left;">j‘</td>
+<td style="text-align: left;">x</td>
+<td style="text-align: left;">j_twin</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: left;">ab</td>
+<td style="text-align: left;">f3</td>
+</tr>
+<tr>
+<td style="text-align: left;">k’</td>
+<td style="text-align: left;">l</td>
+<td style="text-align: left;">o</td>
+<td style="text-align: left;">e</td>
+<td style="text-align: left;">ec(bc)</td>
+<td style="text-align: left;">f1</td>
+</tr>
+<tr>
+<td style="text-align: left;">l‘</td>
+<td style="text-align: left;">p</td>
+<td style="text-align: left;">l_twin</td>
+<td style="text-align: left;">c</td>
+<td style="text-align: left;">ca</td>
+<td style="text-align: left;">f1</td>
+</tr>
+<tr>
+<td style="text-align: left;">m’</td>
+<td style="text-align: left;">s</td>
+<td style="text-align: left;">m_twin</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: left;">bd</td>
+<td style="text-align: left;">f4</td>
+</tr>
+<tr>
+<td style="text-align: left;">n‘</td>
+<td style="text-align: left;">o</td>
+<td style="text-align: left;">n_twin</td>
+<td style="text-align: left;">d</td>
+<td style="text-align: left;">dc</td>
+<td style="text-align: left;">f2</td>
+</tr>
+<tr>
+<td style="text-align: left;">o’</td>
+<td style="text-align: left;">r</td>
+<td style="text-align: left;">k</td>
+<td style="text-align: left;">c</td>
+<td style="text-align: left;">ec(bc)</td>
+<td style="text-align: left;">f2</td>
+</tr>
+<tr>
+<td style="text-align: left;">p‘</td>
+<td style="text-align: left;">k</td>
+<td style="text-align: left;">q</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: left;">ae</td>
+<td style="text-align: left;">f1</td>
+</tr>
+<tr>
+<td style="text-align: left;">q’</td>
+<td style="text-align: left;">j</td>
+<td style="text-align: left;">p</td>
+<td style="text-align: left;">e</td>
+<td style="text-align: left;">ae</td>
+<td style="text-align: left;">f3</td>
+</tr>
+<tr>
+<td style="text-align: left;">r‘</td>
+<td style="text-align: left;">n</td>
+<td style="text-align: left;">s</td>
+<td style="text-align: left;">e</td>
+<td style="text-align: left;">ed</td>
+<td style="text-align: left;">f2</td>
+</tr>
+<tr>
+<td style="text-align: left;">s’</td>
+<td style="text-align: left;">y</td>
+<td style="text-align: left;">r</td>
+<td style="text-align: left;">d</td>
+<td style="text-align: left;">ed</td>
+<td style="text-align: left;">f4</td>
+</tr>
+<tr>
+<td style="text-align: left;">x‘</td>
+<td style="text-align: left;">q</td>
+<td style="text-align: left;">y</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: left;">be</td>
+<td style="text-align: left;">f3</td>
+</tr>
+<tr>
+<td style="text-align: left;">y’</td>
+<td style="text-align: left;">m</td>
+<td style="text-align: left;">x</td>
+<td style="text-align: left;">e</td>
+<td style="text-align: left;">be</td>
+<td style="text-align: left;">f4</td>
+</tr>
+</tbody>
+</table>
+<p>Where the new halfedges are marked with single quotes, the same applies to the vertices, edges and faces.</p>
+<p>For the vertices:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">a</th>
+<th style="text-align: left;">b</th>
+<th style="text-align: left;">c</th>
+<th style="text-align: left;">d</th>
+<th style="text-align: left;">a'</th>
+<th style="text-align: left;">b'</th>
+<th style="text-align: left;">c'</th>
+<th style="text-align: left;">d'</th>
+<th style="text-align: left;">e'</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">halfedge</td>
+<td style="text-align: left;">j</td>
+<td style="text-align: left;">k/m</td>
+<td style="text-align: left;">o/l</td>
+<td style="text-align: left;">n</td>
+<td style="text-align: left;">p/j</td>
+<td style="text-align: left;">x/m</td>
+<td style="text-align: left;">o/l</td>
+<td style="text-align: left;">s/n</td>
+<td style="text-align: left;">k</td>
+</tr>
+</tbody>
+</table>
+<p>For the edges:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">ab</th>
+<th style="text-align: left;">bc</th>
+<th style="text-align: left;">ca</th>
+<th style="text-align: left;">bd</th>
+<th style="text-align: left;">dc</th>
+<th style="text-align: left;">ab'</th>
+<th style="text-align: left;">be'</th>
+<th style="text-align: left;">ea'</th>
+<th style="text-align: left;">ec'(bc)</th>
+<th style="text-align: left;">ca'</th>
+<th style="text-align: left;">bd'</th>
+<th style="text-align: left;">dc'</th>
+<th style="text-align: left;">de'</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">halfedge</td>
+<td style="text-align: left;">j</td>
+<td style="text-align: left;">k/o</td>
+<td style="text-align: left;">l</td>
+<td style="text-align: left;">m</td>
+<td style="text-align: left;">n</td>
+<td style="text-align: left;">j</td>
+<td style="text-align: left;">x/y</td>
+<td style="text-align: left;">q/p</td>
+<td style="text-align: left;">k</td>
+<td style="text-align: left;">l</td>
+<td style="text-align: left;">m</td>
+<td style="text-align: left;">n</td>
+<td style="text-align: left;">r/s</td>
+</tr>
+</tbody>
+</table>
+<p>For the faces:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">f1</th>
+<th style="text-align: left;">f2</th>
+<th style="text-align: left;">f1'</th>
+<th style="text-align: left;">f2'</th>
+<th style="text-align: left;">f3'</th>
+<th style="text-align: left;">f4'</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">halfedge</td>
+<td style="text-align: left;">j/k/l</td>
+<td style="text-align: left;">m/n/o</td>
+<td style="text-align: left;">l/p/k</td>
+<td style="text-align: left;">o/r/n</td>
+<td style="text-align: left;">j/x/q</td>
+<td style="text-align: left;">m/s/y</td>
+</tr>
+</tbody>
+</table>
+<p>With help of the above tables, the implementation is simple as follows:
+<div class="language-cpp highlight"><span class="filename">C++</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">VertexIter</span><span class="w"> </span><span class="nf">HalfedgeMesh::splitEdge</span><span class="p">(</span><span class="w"> </span><span class="n">EdgeIter</span><span class="w"> </span><span class="n">e0</span><span class="w"> </span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="c1">// TODO Part 5.</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="c1">// This method should split the given edge and return an iterator to the newly inserted vertex.</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="c1">// The halfedge of this vertex should point along the edge that was split, rather than the new edges.</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">HalfedgeIter</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="n">j_new</span><span class="p">,</span><span class="w"> </span><span class="n">k_new</span><span class="p">,</span><span class="w"> </span><span class="n">l_new</span><span class="p">,</span><span class="w"> </span><span class="n">m_new</span><span class="p">,</span><span class="w"> </span><span class="n">n_new</span><span class="p">,</span><span class="w"> </span><span class="n">o_new</span><span class="p">,</span><span class="w"> </span><span class="n">p_new</span><span class="p">,</span><span class="w"> </span><span class="n">q_new</span><span class="p">,</span><span class="w"> </span><span class="n">r_new</span><span class="p">,</span><span class="w"> </span><span class="n">s_new</span><span class="p">,</span><span class="n">x_new</span><span class="p">,</span><span class="n">y_new</span><span class="p">;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">k_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e0</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">();</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="n">l_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">();</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="n">j_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">();</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="n">o_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e0</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">twin</span><span class="p">();</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="n">m_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">();</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="n">n_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">();</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="n">p_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newHalfedge</span><span class="p">();</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="n">q_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newHalfedge</span><span class="p">();</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="n">r_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newHalfedge</span><span class="p">();</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="n">s_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newHalfedge</span><span class="p">();</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="n">x_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newHalfedge</span><span class="p">();</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="n">y_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newHalfedge</span><span class="p">();</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="n">VertexIter</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">a_new</span><span class="p">,</span><span class="w"> </span><span class="n">b_new</span><span class="p">,</span><span class="w"> </span><span class="n">c_new</span><span class="p">,</span><span class="w"> </span><span class="n">d_new</span><span class="p">,</span><span class="w"> </span><span class="n">e_new</span><span class="p">;</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="n">a_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="o">-&gt;</span><span class="n">vertex</span><span class="p">();</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="n">b_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="o">-&gt;</span><span class="n">vertex</span><span class="p">();</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="n">c_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="o">-&gt;</span><span class="n">vertex</span><span class="p">();</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="n">d_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="o">-&gt;</span><span class="n">vertex</span><span class="p">();</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="n">e_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newVertex</span><span class="p">();</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">    </span><span class="n">EdgeIter</span><span class="w"> </span><span class="n">ab</span><span class="p">,</span><span class="w"> </span><span class="n">bc</span><span class="p">,</span><span class="w"> </span><span class="n">ca</span><span class="p">,</span><span class="w"> </span><span class="n">bd</span><span class="p">,</span><span class="w"> </span><span class="n">dc</span><span class="p">,</span><span class="w"> </span><span class="n">ab_new</span><span class="p">,</span><span class="w"> </span><span class="n">bc_new_ec</span><span class="p">,</span><span class="w"> </span><span class="n">ca_new</span><span class="p">,</span><span class="w"> </span><span class="n">bd_new</span><span class="p">,</span><span class="w"> </span><span class="n">dc_new</span><span class="p">,</span><span class="w"> </span><span class="n">ae_new</span><span class="p">,</span><span class="w"> </span><span class="n">be_new</span><span class="p">,</span><span class="w"> </span><span class="n">ed_new</span><span class="p">;</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="n">ab_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="o">-&gt;</span><span class="n">edge</span><span class="p">();</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="n">bc_new_ec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="o">-&gt;</span><span class="n">edge</span><span class="p">();</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="n">ca_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="o">-&gt;</span><span class="n">edge</span><span class="p">();</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="n">bd_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="o">-&gt;</span><span class="n">edge</span><span class="p">();</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">    </span><span class="n">dc_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="o">-&gt;</span><span class="n">edge</span><span class="p">();</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">    </span><span class="n">ae_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newEdge</span><span class="p">();</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">    </span><span class="n">be_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newEdge</span><span class="p">();</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">    </span><span class="n">ed_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newEdge</span><span class="p">();</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">    </span><span class="n">FaceIter</span><span class="w"> </span><span class="n">f1</span><span class="p">,</span><span class="w"> </span><span class="n">f2</span><span class="p">,</span><span class="w"> </span><span class="n">f1_new</span><span class="p">,</span><span class="w"> </span><span class="n">f2_new</span><span class="p">,</span><span class="w"> </span><span class="n">f3_new</span><span class="p">,</span><span class="w"> </span><span class="n">f4_new</span><span class="p">;</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="w">    </span><span class="n">f1_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="o">-&gt;</span><span class="n">face</span><span class="p">();</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">    </span><span class="n">f2_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="o">-&gt;</span><span class="n">face</span><span class="p">();</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">    </span><span class="n">f3_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newFace</span><span class="p">();</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">    </span><span class="n">f4_new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newFace</span><span class="p">();</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="w">    </span><span class="c1">// Update the halfedges</span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="w">    </span><span class="n">j_new</span><span class="o">-&gt;</span><span class="n">setNeighbors</span><span class="p">(</span><span class="n">x_new</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="o">-&gt;</span><span class="n">twin</span><span class="p">(),</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">ab</span><span class="p">,</span><span class="w"> </span><span class="n">f3_new</span><span class="p">);</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="w">    </span><span class="n">k_new</span><span class="o">-&gt;</span><span class="n">setNeighbors</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">o</span><span class="p">,</span><span class="n">e_new</span><span class="p">,</span><span class="n">bc</span><span class="p">,</span><span class="n">f1</span><span class="p">);</span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="w">    </span><span class="n">l_new</span><span class="o">-&gt;</span><span class="n">setNeighbors</span><span class="p">(</span><span class="n">p_new</span><span class="p">,</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">twin</span><span class="p">(),</span><span class="n">c</span><span class="p">,</span><span class="n">ca</span><span class="p">,</span><span class="n">f1</span><span class="p">);</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="w">    </span><span class="n">m_new</span><span class="o">-&gt;</span><span class="n">setNeighbors</span><span class="p">(</span><span class="n">s_new</span><span class="p">,</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">twin</span><span class="p">(),</span><span class="n">b</span><span class="p">,</span><span class="n">bd</span><span class="p">,</span><span class="n">f4_new</span><span class="p">);</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="w">    </span><span class="n">n_new</span><span class="o">-&gt;</span><span class="n">setNeighbors</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="n">n</span><span class="o">-&gt;</span><span class="n">twin</span><span class="p">(),</span><span class="n">d</span><span class="p">,</span><span class="n">dc</span><span class="p">,</span><span class="n">f2</span><span class="p">);</span>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="w">    </span><span class="n">o_new</span><span class="o">-&gt;</span><span class="n">setNeighbors</span><span class="p">(</span><span class="n">r_new</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">bc</span><span class="p">,</span><span class="n">f2</span><span class="p">);</span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="w">    </span><span class="n">p_new</span><span class="o">-&gt;</span><span class="n">setNeighbors</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">q_new</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">ae_new</span><span class="p">,</span><span class="n">f1</span><span class="p">);</span>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a><span class="w">    </span><span class="n">q_new</span><span class="o">-&gt;</span><span class="n">setNeighbors</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="n">p_new</span><span class="p">,</span><span class="n">e_new</span><span class="p">,</span><span class="n">ae_new</span><span class="p">,</span><span class="n">f3_new</span><span class="p">);</span>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a><span class="w">    </span><span class="n">r_new</span><span class="o">-&gt;</span><span class="n">setNeighbors</span><span class="p">(</span><span class="n">n_new</span><span class="p">,</span><span class="n">s_new</span><span class="p">,</span><span class="n">e_new</span><span class="p">,</span><span class="n">ed_new</span><span class="p">,</span><span class="n">f2</span><span class="p">);</span>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="w">    </span><span class="n">s_new</span><span class="o">-&gt;</span><span class="n">setNeighbors</span><span class="p">(</span><span class="n">y_new</span><span class="p">,</span><span class="n">r_new</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">ed_new</span><span class="p">,</span><span class="n">f4_new</span><span class="p">);</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="w">    </span><span class="n">x_new</span><span class="o">-&gt;</span><span class="n">setNeighbors</span><span class="p">(</span><span class="n">q_new</span><span class="p">,</span><span class="n">y_new</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">be_new</span><span class="p">,</span><span class="n">f3_new</span><span class="p">);</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a><span class="w">    </span><span class="n">y_new</span><span class="o">-&gt;</span><span class="n">setNeighbors</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">x_new</span><span class="p">,</span><span class="n">e_new</span><span class="p">,</span><span class="n">be_new</span><span class="p">,</span><span class="n">f4_new</span><span class="p">);</span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="w">    </span><span class="c1">// Update the vertices</span>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="w">    </span><span class="n">a_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a><span class="w">    </span><span class="n">b_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="p">;</span>
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a><span class="w">    </span><span class="n">c_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="p">;</span>
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="w">    </span><span class="n">d_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a><span class="w">    </span><span class="n">e_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="p">;</span>
+</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a><span class="w">    </span><span class="c1">// Update the edges</span>
+</span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a><span class="w">    </span><span class="n">ab_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
+</span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a><span class="w">    </span><span class="n">be_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y_new</span><span class="p">;</span>
+</span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a><span class="w">    </span><span class="n">ae_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q_new</span><span class="p">;</span>
+</span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a><span class="w">    </span><span class="n">bc_new_ec</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="p">;</span>
+</span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a><span class="w">    </span><span class="n">ca_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="p">;</span>
+</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a><span class="w">    </span><span class="n">bd_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="p">;</span>
+</span><span id="__span-0-71"><a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a><span class="w">    </span><span class="n">dc_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+</span><span id="__span-0-72"><a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a><span class="w">    </span><span class="n">ed_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s_new</span><span class="p">;</span>
+</span><span id="__span-0-73"><a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a>
+</span><span id="__span-0-74"><a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a><span class="w">    </span><span class="c1">// Update the faces</span>
+</span><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75" href="#__codelineno-0-75"></a><span class="w">    </span><span class="n">f1_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="p">;</span>
+</span><span id="__span-0-76"><a id="__codelineno-0-76" name="__codelineno-0-76" href="#__codelineno-0-76"></a><span class="w">    </span><span class="n">f2_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">;</span>
+</span><span id="__span-0-77"><a id="__codelineno-0-77" name="__codelineno-0-77" href="#__codelineno-0-77"></a><span class="w">    </span><span class="n">f3_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
+</span><span id="__span-0-78"><a id="__codelineno-0-78" name="__codelineno-0-78" href="#__codelineno-0-78"></a><span class="w">    </span><span class="n">f4_new</span><span class="o">-&gt;</span><span class="n">halfedge</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="p">;</span>
+</span><span id="__span-0-79"><a id="__codelineno-0-79" name="__codelineno-0-79" href="#__codelineno-0-79"></a>
+</span><span id="__span-0-80"><a id="__codelineno-0-80" name="__codelineno-0-80" href="#__codelineno-0-80"></a><span class="w">    </span><span class="c1">// Update the position of the new vertex</span>
+</span><span id="__span-0-81"><a id="__codelineno-0-81" name="__codelineno-0-81" href="#__codelineno-0-81"></a><span class="w">    </span><span class="c1">// The new vertex should be the average of the two original vertices, b and c</span>
+</span><span id="__span-0-82"><a id="__codelineno-0-82" name="__codelineno-0-82" href="#__codelineno-0-82"></a><span class="w">    </span><span class="n">e_new</span><span class="o">-&gt;</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">b</span><span class="o">-&gt;</span><span class="n">position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">position</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-0-83"><a id="__codelineno-0-83" name="__codelineno-0-83" href="#__codelineno-0-83"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">e_new</span><span class="p">;</span>
+</span><span id="__span-0-84"><a id="__codelineno-0-84" name="__codelineno-0-84" href="#__codelineno-0-84"></a><span class="w">  </span><span class="p">}</span>
+</span></code></pre></div></p>
+<p>With careful consideration of the pointers and values, the implementation is one-shot correct and has undergone no debugging process.</p>
+<h2 id="results">Results</h2>
+<p>The figure below is the original teapot.</p>
+<p><a class="glightbox" href="../../../images/hw2/section2/hw2part5_teapot.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="original teapot" src="../../../images/hw2/section2/hw2part5_teapot.png" /></a></p>
+<p>After some edge splits:</p>
+<p><a class="glightbox" href="../../../images/hw2/section2/hw2part2_splite.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="split teapot" src="../../../images/hw2/section2/hw2part2_splite.png" /></a></p>
+<p>After a combination of both edge splits and edge flips:</p>
+<p><a class="glightbox" href="../../../images/hw2/section2/hw2part5_combination.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="combination teapot" src="../../../images/hw2/section2/hw2part5_combination.png" /></a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["header.autohide", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
