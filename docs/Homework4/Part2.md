@@ -62,7 +62,7 @@ All these pictures are taken when the cloth becomes static. The effect of changi
 ![stability low damping](../images/hw4/part2/stabilitylowdamping.PNG){ width=49% }
 
 Description:
-The three pictures above are images of the cloth running from the initial state for 10 seconds. Obviously, the smaller the damping, the faster the cloth will fall. The two pictures below show that when the object is stationary, changing the damping will have no effect (after all, it is not moving). The special case is that the damping is 0, which will cause severe distortion, and the cloth will never stop due to energy conservation.
+The three pictures above are images of the cloth running from the initial state for 10 seconds. Obviously, the smaller the damping, the faster the cloth will fall. The two pictures below show that when the object is stationary, changing the damping will have no effect (after all, it is not moving). The special case is that the damping is 0. The cloth will never stop due to energy conservation.
 
 ## scene/pinned4.json in its final resting state
 
