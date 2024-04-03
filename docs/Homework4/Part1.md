@@ -14,7 +14,7 @@ The following images show the result of scene/pinned2.json at default parameters
 
 
 
-
+### Wireframe with specific conditions
 
 **Without any shearing constraints**
 
